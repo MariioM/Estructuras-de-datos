@@ -1,4 +1,4 @@
-/* LIBRER�AS EST�NDAR*/
+/* LIBRERÍAS ESTÁNDAR*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,64 +22,16 @@
 #define OPCION_OCHO 8
 
 
-
-
 #define NOM_FICHERO "fich02Copia.csv"
 
 
-
-void Pausar(void)
-{
-  /* A rellenar por el alumno*/
-}
-
-void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
-{
-
- /*A rellenar por el alumno*/
-
-
- }
-
- 
-
-tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento)
-{
-
- /* A rellenar por el alumno */
-
-
-}
-
-
-tCola ConstruirCola(tCola *pCola1,  tElemento *pElemento)
-{
-/* A rellenar por el alumno */
-
-
-
- }
-
-
-
-
-
-tPila * ExtraerPilaOrden(tPila *pPila, char Letra)
-{
-
-/* A rellenar por el alumno */
-
-}
-
-tCola ExtraerColaOrden(tCola Cola, char Letra)
-{
-/* A rellenar por el alumno */
-
-
-
-}
-
-
+int LeeFichero (char *NomFichero, tElemento *p, int *Num);
+void Pausar(void);
+void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento);
+tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento);
+tCola ConstruirCola(tCola *pCola1,  tElemento *pElemento);
+tPila * ExtraerPilaOrden(tPila *pPila, char Letra);
+tCola ExtraerColaOrden(tCola Cola, char Letra);
 
 main (void)
 {
@@ -124,6 +76,55 @@ int LeeFichero (char *NomFichero, tElemento *p, int *Num)
 {
    
 /* A rellenar por el alumno */
+
+
+}
+
+
+void Pausar(void)
+{
+  /* A rellenar por el alumno*/
+}
+
+void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
+{
+
+ /*A rellenar por el alumno*/
+
+
+ }
+
+ 
+tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento)
+{
+
+ /* A rellenar por el alumno */
+
+
+}
+
+
+tCola ConstruirCola(tCola *pCola1,  tElemento *pElemento)
+{
+/* A rellenar por el alumno */
+
+
+
+ }
+
+
+tPila * ExtraerPilaOrden(tPila *pPila, char Letra)
+{
+
+/* A rellenar por el alumno */
+
+}
+
+
+tCola ExtraerColaOrden(tCola Cola, char Letra)
+{
+/* A rellenar por el alumno */
+
 
 
 }
