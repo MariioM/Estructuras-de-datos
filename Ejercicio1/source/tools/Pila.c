@@ -1,4 +1,4 @@
-/* LIBRERÍAS ESTÁNDAR*/
+/* LIBRERï¿½AS ESTï¿½NDAR*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,46 +8,59 @@
 #include "Pila.h"
 #include "Err.h"
 
-
-
-
-
-
-tPila *Apilar(tPila *p, tElemento Ele) {
-/* A rellenar por el alumno */
-
-}
-
-void VisualizarPila(tPila *p) {
-/* A rellenar por el alumno */
-
-}
-
-int CalcularNumElementos (tPila *p) {
-/* A rellenar por el alumno */
-
-}
-
-
-tPila *Desapilar(tPila *p, tElemento *e) {
-
-/* A rellenar por el alumno */
-
-}
-
-int EsPilaVacia(tPila *p) {
-   /* A rellenar por el alumno */
-
-}
-
-
-
-
-void EliminarParesPila (tPila **pPila)
+tPila *Apilar(tPila *p, tElemento Ele)
 {
-   /* A rellenar por el alumno */
-
-
+   tNodo *nodo = CrearNodo(Ele);
+   nodo->Sig = p->cima;
+   p->cima = nodo;
 }
 
+void VisualizarPila(tPila *p)
+{
+   tNodo *actual = p->cima;
 
+   while (actual != NULL)
+   {
+      printf(actual);
+      actual = actual->Sig;
+   }
+}
+
+int CalcularNumElementos(tPila *p)
+{
+   int longitud = 0;
+   tNodo *actual = p->cima;
+
+   while (actual != NULL)
+   {
+      longitud++;
+      actual = actual->Sig;
+   }
+   return longitud;
+}
+
+tPila *Desapilar(tPila *p, tElemento *e)
+{
+   if (p != NULL)
+   {
+      tNodo *eliminar = p->cima;
+      p->cima = p->cima->Sig;
+      DestruirNodo(eliminar);
+   }
+}
+
+int EsPilaVacia(tPila *p)
+{
+   if (p->cima == NULL)
+   {
+      return 0;
+   }
+   else
+   {
+      return 1;
+   }
+}
+
+void EliminarParesPila(tPila **pPila)
+{
+}
