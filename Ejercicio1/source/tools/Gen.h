@@ -23,3 +23,9 @@ tNodo *CrearNodo(tElemento element)
     nodo->Sig = NULL;
     return nodo;
 }
+
+tNodo *DestruirNodo(tNodo *nodo)
+{
+    nodo->Sig = NULL;
+    free(nodo);
+}
