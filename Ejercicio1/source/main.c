@@ -110,9 +110,10 @@ int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lin
   }
   for (int i = 0; i < num_usuarios; i++)
   {
-    fscanf(pf_usuarios, "%s;%s;%s", usuario->Nombre, usuario->Apellido, usuario->Password);
+    fscanf(pf_usuarios, "%[^;];%[^;];%s", usuario->Nombre, usuario->Apellido, usuario->Password);
     usuario++;
   }
+  usuario -= num_usuarios;
   fclose(pf_usuarios); // Cierra el archivo después de leer los datos
 
   // Imprime los datos almacenados
