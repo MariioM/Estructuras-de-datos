@@ -1,4 +1,4 @@
-/* LIBRERÍAS ESTÁNDAR*/
+/* LIBRERï¿½AS ESTï¿½NDAR*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,46 +8,38 @@
 #include "Pila.h"
 #include "Err.h"
 
-
-
-
-
-
-tPila *Apilar(tPila *p, tElemento Ele) {
-/* A rellenar por el alumno */
-
+tPila *Apilar(tPila *p, tElemento Ele)
+{
+   tNodo *nodo = CrearNodo(Ele);
+   nodo->Sig = p->cima;
+   p->cima = nodo;
 }
 
-void VisualizarPila(tPila *p) {
-/* A rellenar por el alumno */
-
-}
-
-int CalcularNumElementos (tPila *p) {
-/* A rellenar por el alumno */
-
-}
-
-
-tPila *Desapilar(tPila *p, tElemento *e) {
-
-/* A rellenar por el alumno */
-
-}
-
-int EsPilaVacia(tPila *p) {
-   /* A rellenar por el alumno */
-
-}
-
-
-
-
-void EliminarParesPila (tPila **pPila)
+void VisualizarPila(tPila *p)
 {
    /* A rellenar por el alumno */
-
-
 }
 
+int CalcularNumElementos(tPila *p)
+{
+}
 
+tPila *Desapilar(tPila *p, tElemento *e)
+{
+   if (p != NULL)
+   {
+      tNodo *eliminar = p->cima;
+      p->cima = p->cima->Sig;
+      DestruirNodo(eliminar);
+   }
+}
+
+int EsPilaVacia(tPila *p)
+{
+   return p->cima == NULL;
+}
+
+void EliminarParesPila(tPila **pPila)
+{
+   /* A rellenar por el alumno */
+}
