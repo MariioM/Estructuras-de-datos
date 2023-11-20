@@ -17,11 +17,26 @@ tPila *Apilar(tPila *p, tElemento Ele)
 
 void VisualizarPila(tPila *p)
 {
-   /* A rellenar por el alumno */
+   tNodo *actual = p->cima;
+
+   while (actual != NULL)
+   {
+      printf(actual);
+      actual = actual->Sig;
+   }
 }
 
 int CalcularNumElementos(tPila *p)
 {
+   int longitud = 0;
+   tNodo *actual = p->cima;
+
+   while (actual != NULL)
+   {
+      longitud++;
+      actual = actual->Sig;
+   }
+   return longitud;
 }
 
 tPila *Desapilar(tPila *p, tElemento *e)
@@ -36,10 +51,16 @@ tPila *Desapilar(tPila *p, tElemento *e)
 
 int EsPilaVacia(tPila *p)
 {
-   return p->cima == NULL;
+   if (p->cima == NULL)
+   {
+      return 0;
+   }
+   else
+   {
+      return 1;
+   }
 }
 
 void EliminarParesPila(tPila **pPila)
 {
-   /* A rellenar por el alumno */
 }
