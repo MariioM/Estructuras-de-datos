@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.asm": "z80-asm",
+        "pila.h": "c",
+        "cola.h": "c",
+        "err.h": "c"
+    }
+}

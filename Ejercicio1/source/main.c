@@ -11,16 +11,6 @@
 #include "tools/Cola.h"
 #include "tools/Lista.h"
 
-#define OPCION_UNO 1
-#define OPCION_DOS 2
-#define OPCION_TRES 3
-#define OPCION_CUATRO 4
-#define OPCION_CINCO 5
-#define OPCION_SEIS 6
-#define OPCION_SIETE 7
-#define OPCION_OCHO 8
-
-#define NOM_FICHERO "fich02.csv"
 #define NUM_CHAR_FICH 50
 
 void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios);
@@ -137,10 +127,12 @@ void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
   /*A rellenar por el alumno*/
 }
 
-tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento)
+tPila *ConstruirPila(tPila *pPila1, tElemento *usuario)
 {
-
-  /* A rellenar por el alumno */
+  while (usuario != NULL)
+  {
+    Apilar(pPila1, *usuario);
+  }
 }
 
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento)
@@ -150,7 +142,6 @@ tCola ConstruirCola(tCola *pCola1, tElemento *pElemento)
 
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra)
 {
-
   /* A rellenar por el alumno */
 }
 
