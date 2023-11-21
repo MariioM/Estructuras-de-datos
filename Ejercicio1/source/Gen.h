@@ -16,16 +16,5 @@ typedef struct _pnodo
     struct _pnodo *Sig;
 } tNodo;
 
-tNodo *CrearNodo(tElemento element)
-{
-    tNodo *nodo = (tNodo *)malloc(sizeof(tNodo));
-    nodo->Elem = element;
-    nodo->Sig = NULL;
-    return nodo;
-}
-
-tNodo *DestruirNodo(tNodo *nodo)
-{
-    nodo->Sig = NULL;
-    free(nodo);
-}
+extern tNodo *CrearNodo(tElemento element);
+extern tNodo *DestruirNodo(tNodo *nodo);

@@ -1,4 +1,4 @@
-/* LIBRER�AS EST�NDAR*/
+/* LIBRERÍAS ESTÁNDAR*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,7 +8,7 @@
 #include "Pila.h"
 #include "Err.h"
 
-tPila *Apilar(tPila *p, tElemento Ele)
+extern tPila *Apilar(tPila *p, tElemento Ele)
 {
    tNodo *nodo = CrearNodo(Ele);
    nodo->Sig = p->cima;
@@ -17,13 +17,7 @@ tPila *Apilar(tPila *p, tElemento Ele)
 
 void VisualizarPila(tPila *p)
 {
-   tNodo *actual = p->cima;
-
-   while (actual != NULL)
-   {
-      printf(actual);
-      actual = actual->Sig;
-   }
+   printf("Visualiza");
 }
 
 int CalcularNumElementos(tPila *p)
@@ -63,4 +57,5 @@ int EsPilaVacia(tPila *p)
 
 void EliminarParesPila(tPila **pPila)
 {
+   /* A rellenar por el alumno */
 }

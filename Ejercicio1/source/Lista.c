@@ -7,11 +7,10 @@
 #include "Lista.h"
 #include "Err.h"
 
+tLista CrearLista()
+{
 
-tLista CrearLista() {
-
- /* A rellenar por el alumno */
-
+    /* A rellenar por el alumno */
 }
 
 /*
@@ -28,10 +27,10 @@ tLista CrearLista() {
  *
  */
 
-tLista Insertar(tLista l, tElemento e, tPosicion p) {
+tLista Insertar(tLista l, tElemento e, tPosicion p)
+{
 
-/* A rellenar por el alumno */
-
+    /* A rellenar por el alumno */
 }
 /*
  *
@@ -46,13 +45,11 @@ tLista Insertar(tLista l, tElemento e, tPosicion p) {
  *
  */
 
+tLista Borrar(tLista l, tPosicion p)
+{
 
-tLista Borrar(tLista l, tPosicion p) {
-
-/* A rellenar por el alumno */
-
+    /* A rellenar por el alumno */
 }
-
 
 /*
  *
@@ -67,9 +64,9 @@ tLista Borrar(tLista l, tPosicion p) {
  *
  */
 
-tElemento Recuperar(tPosicion p) {
-/* A rellenar por el alumno */
-
+tElemento Recuperar(tPosicion p)
+{
+    /* A rellenar por el alumno */
 }
 
 /*
@@ -84,8 +81,9 @@ tElemento Recuperar(tPosicion p) {
  * Parámetro de salida: TRUE/FALSE.
  *
  */
-int EsListaVacia (tLista l) {
-/* A rellenar por el alumno */
+int EsListaVacia(tLista l)
+{
+    /* A rellenar por el alumno */
 }
 /*
  *
@@ -99,9 +97,9 @@ int EsListaVacia (tLista l) {
  * Parámetro de salida:  Puntero al ultimo elemento de la lista
  *
  */
-tPosicion ConseguirPosicionFin(tLista l) {
-/* A rellenar por el alumno */
-
+tPosicion ConseguirPosicionFin(tLista l)
+{
+    /* A rellenar por el alumno */
 }
 
 /*
@@ -116,9 +114,9 @@ tPosicion ConseguirPosicionFin(tLista l) {
  * Parámetro de salida:  Puntero al primer elemento de la lista
  *
  */
-tPosicion ConseguirPosicionPrincipio(tLista l) {
-/* A rellenar por el alumno */
-
+tPosicion ConseguirPosicionPrincipio(tLista l)
+{
+    /* A rellenar por el alumno */
 }
 /*
  *
@@ -133,9 +131,9 @@ tPosicion ConseguirPosicionPrincipio(tLista l) {
  * Parámetro de salida:  puntero al elemento de la lista que sigue al que se le pasa como parametro.
  *
  */
-tPosicion ConseguirPosicionSiguiente(tPosicion p) {
-/* A rellenar por el alumno */
-
+tPosicion ConseguirPosicionSiguiente(tPosicion p)
+{
+    /* A rellenar por el alumno */
 }
 
 /*
@@ -151,11 +149,9 @@ tPosicion ConseguirPosicionSiguiente(tPosicion p) {
  * Parámetro de salida:  No tiene.
  *
  */
-void VisualizarLista(tLista p) {
-/* A rellenar por el alumno */
-
-
-
+void VisualizarLista(tLista p)
+{
+    /* A rellenar por el alumno */
 }
 
 /*
@@ -171,8 +167,8 @@ void VisualizarLista(tLista p) {
  * Parámetro de salida:  Número de elementos.
  *
  */
-int CalcularNumeroElementosLista(tLista p) {
+int CalcularNumeroElementosLista(tLista p)
+{
 
-/* A rellenar por el alumno */
-
+    /* A rellenar por el alumno */
 }

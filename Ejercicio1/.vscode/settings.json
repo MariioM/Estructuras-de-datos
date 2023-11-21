@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.pcss": "css",
+        ".postcssrc": "json",
+        ".styleintrc": "json",
+        "pila.h": "c",
+        "lista.h": "c",
+        "cola.h": "c",
+        "err.h": "c"
+    }
+}
