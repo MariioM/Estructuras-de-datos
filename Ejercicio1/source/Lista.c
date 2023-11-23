@@ -26,7 +26,7 @@ tLista Insertar(tLista l, tElemento e, tPosicion p)
 
 tLista Borrar(tLista l, tPosicion p)
 {
-    if (EsListaVacia(l)) // Lista vacia
+    /*if (EsListaVacia(l)) // Lista vacia
     {
         printf("Error al eliminar: Lista vacia.\n");
     }
@@ -83,6 +83,7 @@ tLista Borrar(tLista l, tPosicion p)
         aux->Sig = borrar->Sig;
         free(borrar);
     }
+    */
 }
 
 tElemento Recuperar(tPosicion p)

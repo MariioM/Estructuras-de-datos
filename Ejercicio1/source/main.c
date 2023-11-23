@@ -151,6 +151,7 @@ void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
     while (pElemento != NULL)
     {
         Apilar(pPila1, *pElemento);
+        pElemento++;
     }
 }
 
