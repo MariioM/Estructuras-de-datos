@@ -10,8 +10,8 @@ typedef struct
   tNodo *pCab, *pCol; /* Punteros a la cabeza y la cola. */
 } tCola;
 
-extern int Encolar(tCola *p, tElemento E);
-extern int Desencolar(tCola *p, tElemento *E);
+extern void Encolar(tCola *p, tElemento E);
+extern void Desencolar(tCola *p, tElemento *E);
 extern int EsColaVacia(tCola *p);
 extern int VerCola(tCola p);
 extern int CalcularNumElementosC(tCola *p);

@@ -22,13 +22,14 @@
 
 #define NOM_FICHERO "fich02.csv"
 #define NUM_CHAR_FICH 50
+#define N 50
 
 void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios);
 int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lineaDatos[]);
 void Pausar(void);
 void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento);
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento);
-tCola ConstruirCola(tCola *pCola1, tElemento *pElemento);
+tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra);
 tCola ExtraerColaOrden(tCola Cola, char Letra);
 
@@ -67,12 +68,8 @@ int main(void)
     int Pos;
     tElemento Elemento;
     tPosicion pPos;
-    char Let;
-
-    // Esto es para probar que funciona
-    printf("Funciona ");
-    ConstruirPilas(pPila1, pPila2, pElemento);
-
+    char Let_cola;
+    char name[N];
     /* Lectura del fichero */
     // Se calcula el número de usuarios existentes
     CalculaUsuarios(pf_usuarios, &num_usuarios);
@@ -80,6 +77,11 @@ int main(void)
     pElemento = (tElemento *)malloc(num_usuarios * sizeof(tElemento));
     // Se lee y guarda el fichero
     LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
+
+    Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
+    printf("Introduzca una letra: ");
+    scanf("%c", Let_cola);
+    
     scanf("%d");
     return 0;
 }
@@ -157,9 +159,15 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento)
     /* A rellenar por el alumno */
 }
 
-tCola ConstruirCola(tCola *pCola1, tElemento *pElemento)
+tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)
 {
-    /* A rellenar por el alumno */
+    *pCola1 = CrearCola();
+    for(int i = 0; i < num_usuario; i++){
+        Encolar(pCola1, *pElemento);
+        pElemento++;
+    }
+    printf("Exito");
+
 }
 
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra)

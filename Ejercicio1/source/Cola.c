@@ -19,25 +19,54 @@
 
 tCola CrearCola()
 {
-
-  /* A rellenar por el alumno */
+    tCola cola;
+    cola.pCab = NULL;
+    cola.pCol = NULL;
+    return cola;
 }
 
-int Encolar(tCola *p, tElemento E)
+void Encolar(tCola *p, tElemento E)
 {
+  // Crear un nodo
+    tNodo *nuevo;
+    nuevo = (tNodo *) malloc (sizeof(tNodo));
 
-  /* A rellenar por el alumno */
+    // Asignarle los valores
+    nuevo->Elem = E;
+    nuevo->Sig = NULL;
+
+    // recolocar punteros
+    if (EsColaVacia(p)) {   // Si est� vac�a, es apuntar con primero y �ltimo a ese nuevo nodo
+        p->pCab = nuevo;
+        p->pCol = nuevo;
+    }
+    else {  // si no est� vac�a, se inserta al final.
+        p->pCab->Sig = nuevo;
+        p->pCol = nuevo;
+    }
 }
 
-int Desencolar(tCola *p, tElemento *E)
+void Desencolar(tCola *p, tElemento *E)
 {
+  tNodo *aux;
 
-  /* A rellenar por el alumno */
+    if (EsColaVacia(p)) {
+        printf("ERROR al desencolar. La cola est� vac�a. \n");
+    }
+    else {
+        aux = p->pCab;
+        p->pCab = aux->Sig; //C->primero = C->primero->sig;
+
+        if (p->pCab == NULL) { //la cola solo tenia un nodo.
+            p->pCol = NULL;
+        }
+        free(aux);
+    }
 }
 
 int EsColaVacia(tCola *p)
 {
-  /* A rellenar por el alumno */
+  return (p->pCab == NULL);
 }
 
 int VerCola(tCola p)
