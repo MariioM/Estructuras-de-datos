@@ -5,7 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-// #include "Gen.h"
+
 #include "Pila.h"
 #include "Err.h"
 #include "Cola.h"
@@ -70,6 +70,7 @@ int main(void)
     tPosicion pPos;
     char Let_cola;
     char name[N];
+
     /* Lectura del fichero */
     // Se calcula el número de usuarios existentes
     CalculaUsuarios(pf_usuarios, &num_usuarios);
@@ -81,7 +82,7 @@ int main(void)
     Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
     printf("Introduzca una letra: ");
     scanf("%c", Let_cola);
-    
+
     scanf("%d");
     return 0;
 }
@@ -150,6 +151,7 @@ void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
     while (pElemento != NULL)
     {
         Apilar(pPila1, *pElemento);
+        pElemento++;
     }
 }
 
@@ -162,12 +164,12 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento)
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)
 {
     *pCola1 = CrearCola();
-    for(int i = 0; i < num_usuario; i++){
+    for (int i = 0; i < num_usuario; i++)
+    {
         Encolar(pCola1, *pElemento);
         pElemento++;
     }
     printf("Exito");
-
 }
 
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra)

@@ -1,3 +1,4 @@
+/* LIBRERÍAS ESTÁNDAR*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,166 +10,128 @@
 
 tLista CrearLista()
 {
-
-    /* A rellenar por el alumno */
+    tLista lista;
+    lista.Primero = NULL;
+    lista.Ultimo = NULL;
+    return lista;
 }
-
-/*
- *
- * Función: Insertar
- *
- * inserta e en la posición p+1 de la lista l. Los elementos que estan a partir de la posición p+1
- * se desplazan una posición.
- * Parámetro de entrada:
- * Elemento, Posicion
- * Parámetro de entrada/salida:
- *        Lista.
- * Parámetro de salida:  Lista.
- *
- */
 
 tLista Insertar(tLista l, tElemento e, tPosicion p)
 {
-
-    /* A rellenar por el alumno */
+    tNodo *nuevo;
+    nuevo = (tNodo *)malloc(sizeof(tNodo));
+    nuevo->Elem = e;
+    nuevo->Sig = l.Primero;
 }
-/*
- *
- * Función: Borrar
- *
- * Borra el elemento de la posición p de la lista l.
- * Parámetro de entrada:
- * Elemento, Posicion
- * Parámetro de entrada/salida:
- *        Lista.
- * Parámetro de salida:  Lista.
- *
- */
 
 tLista Borrar(tLista l, tPosicion p)
 {
+    /*if (EsListaVacia(l)) // Lista vacia
+    {
+        printf("Error al eliminar: Lista vacia.\n");
+    }
+    else if (p <= 0) // Borrar en la posición 0 o una negativa
+    {
+        tNodo *aux = l.Primero;
+        l.Primero = l.Primero->Sig;
 
-    /* A rellenar por el alumno */
+        if (l.Primero == NULL) // La lista sólo tenía un elemento
+        {
+            l.Ultimo = NULL;
+        }
+
+        free(aux);
+    }
+    else if (p >= CalcularNumeroElementosLista(l)) // Borrar en la posición final o una mayor.
+    {
+        tNodo *aux = l.Primero;
+
+        if (l.Primero == l.Ultimo) // La lista sólo tenía un elemento
+        {
+            l.Primero = NULL;
+            l.Ultimo = NULL;
+            free(aux);
+        }
+        else
+        {
+            while (aux->Sig != l.Ultimo)
+            {
+                aux = aux->Sig;
+            }
+
+            // aux = penúltimo elemento
+            free(l.Ultimo);
+            l.Ultimo = aux;
+            l.Ultimo->Sig = NULL;
+        }
+    }
+    else // Borrar dentro de los límites
+    {
+        // Apunta al primer elemento
+        tPosicion aux = l.Primero;
+        tPosicion borrar;
+
+        // Mover aux a la posición anterior a la que quiero borrar
+        int i = 0;
+        for (i = 0; i < p - 1; i++)
+        {
+            aux = aux->Sig;
+        }
+
+        // Borrar el nodo
+        borrar = aux->Sig;
+        aux->Sig = borrar->Sig;
+        free(borrar);
+    }
+    */
 }
-
-/*
- *
- * Función: Recuperar
- *
- * Devuelve el elemento de la posicion p de la lista l.
- * Parámetro de entrada:
- *  Posicion
- * Parámetro de entrada/salida:
- *        Lista.
- * Parámetro de salida:  Elemento.
- *
- */
 
 tElemento Recuperar(tPosicion p)
 {
     /* A rellenar por el alumno */
 }
 
-/*
- *
- * Función: EsListaVacia
- *
- * Devuelve el elemento de la posicion p de la lista l.
- * Parámetro de entrada:
- *  Lista
- * Parámetro de entrada/salida:
- *        Lista.
- * Parámetro de salida: TRUE/FALSE.
- *
- */
 int EsListaVacia(tLista l)
 {
-    /* A rellenar por el alumno */
+    return (l.Primero == NULL);
 }
-/*
- *
- * Función: ConseguirPosicionFin
- *
- * Devuelve un puntero al último elemento de la lista.
- * Parámetro de entrada:
- *  Lista
- * Parámetro de entrada/salida:
- *  No tiene.
- * Parámetro de salida:  Puntero al ultimo elemento de la lista
- *
- */
+
 tPosicion ConseguirPosicionFin(tLista l)
 {
     /* A rellenar por el alumno */
 }
 
-/*
- *
- * Función: ConseguirPosicionPrincipio
- *
- * Devuelve un puntero al último elemento de la lista.
- * Parámetro de entrada:
- *  Lista
- * Parámetro de entrada/salida:
- *  No tiene.
- * Parámetro de salida:  Puntero al primer elemento de la lista
- *
- */
 tPosicion ConseguirPosicionPrincipio(tLista l)
 {
     /* A rellenar por el alumno */
 }
-/*
- *
- * Función: ConseguirPosicionSiguiente
- *
- * Devuelve un puntero al elemento de la lista que sigue al que se le pasa como parametro.
- * Parámetro de entrada:
- *  Lista
- *   Elemento de la Lista
- * Parámetro de entrada/salida:
- *  No tiene.
- * Parámetro de salida:  puntero al elemento de la lista que sigue al que se le pasa como parametro.
- *
- */
+
 tPosicion ConseguirPosicionSiguiente(tPosicion p)
 {
     /* A rellenar por el alumno */
 }
 
-/*
- *
- * Función: VisualizarLista
- *
- * Imprime los elementos de la Lista
- * Parámetro de entrada:
- *
- *  Lista
- * Parámetro de entrada/salida:
- *  No tiene.
- * Parámetro de salida:  No tiene.
- *
- */
-void VisualizarLista(tLista p)
+void VisualizarLista(tLista l)
 {
-    /* A rellenar por el alumno */
+    tPosicion aux = l.Primero;
+
+    printf("Contenido lista: ");
+    while (aux != NULL)
+    {
+        printf("%d -> ", aux->Elem);
+        aux = aux->Sig;
+    }
 }
 
-/*
- *
- * Función: VisualizarLista
- *
- * Imprime los elementos de la Lista
- * Parámetro de entrada:
- *
- *  Lista
- * Parámetro de entrada/salida:
- *  No tiene.
- * Parámetro de salida:  Número de elementos.
- *
- */
-int CalcularNumeroElementosLista(tLista p)
+int CalcularNumeroElementosLista(tLista l)
 {
+    int numElementos = 0;
+    tPosicion aux = l.Primero;
 
-    /* A rellenar por el alumno */
+    printf("Contenido lista: ");
+    while (aux != NULL)
+    {
+        numElementos++;
+        aux = aux->Sig;
+    }
 }
