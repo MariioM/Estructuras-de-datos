@@ -6,6 +6,7 @@
         "pila.h": "c",
         "lista.h": "c",
         "cola.h": "c",
-        "err.h": "c"
+        "err.h": "c",
+        "stdio.h": "c"
     }
 }
