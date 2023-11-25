@@ -93,6 +93,7 @@ int main(void)
             {
             case OPCION_UNO: // 1) Construir pilas.
                 ConstruirPila(pPila1, pElemento, num_usuarios);
+                // TEST
                 VisualizarPila(pPila1, pPila2);
                 break;
             case OPCION_DOS: // 2) Construir colas.
@@ -124,7 +125,6 @@ int main(void)
             break;
         }
     } while (1);
-
     // Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
     printf("Introduzca una letra: ");
     scanf("%c", Let_cola);
