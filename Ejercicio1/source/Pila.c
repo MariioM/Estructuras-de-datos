@@ -8,11 +8,19 @@
 #include "Pila.h"
 #include "Err.h"
 
-extern tPila *Apilar(tPila *p, tElemento Ele)
+tPila *Apilar(tPila *p, tElemento Ele)
 {
    tNodo *nodo = CrearNodo(Ele);
+   p = (tPila *)malloc(sizeof(tPila));
    nodo->Sig = p->cima;
    p->cima = nodo;
+}
+
+tPila *CrearPila()
+{
+   tPila *pila = (tPila *)malloc(sizeof(tPila));
+   pila->cima = NULL;
+   return pila;
 }
 
 void VisualizarPila(tPila *p)

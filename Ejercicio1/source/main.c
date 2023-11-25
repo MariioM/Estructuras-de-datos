@@ -78,7 +78,7 @@ int main(void)
     pElemento = (tElemento *)malloc(num_usuarios * sizeof(tElemento));
     // Se lee y guarda el fichero
     LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
-
+    ConstruirPila(pPila1, pElemento);
     Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
     printf("Introduzca una letra: ");
     scanf("%c", Let_cola);
@@ -148,17 +148,17 @@ void Pausar(void)
 
 void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
 {
+}
+
+tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento)
+{
+    pPila1 = CrearPila();
+    pElemento = (tElemento *)malloc(sizeof(tElemento));
     while (pElemento != NULL)
     {
         Apilar(pPila1, *pElemento);
         pElemento++;
     }
-}
-
-tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento)
-{
-
-    /* A rellenar por el alumno */
 }
 
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)
