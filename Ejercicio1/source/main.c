@@ -24,6 +24,7 @@
 #define NUM_CHAR_FICH 50
 #define N 50
 
+int Menu();
 void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios);
 int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lineaDatos[]);
 void Pausar(void);
@@ -51,6 +52,11 @@ int main(void)
     FILE *pf_usuarios;
     int num_usuarios;
 
+    // Textos Menus
+    char textoMenuPrincipal[] = "\n  Elija que quiere hacer: \n\t 1) Leer fichero.\n\t 2) Construir estructuras.\n\t 3) Extraer nombres pila. \n\t 4) Extraer nombres cola. \n\t 5) Visualizar estructuras \n\t 6) Salir del programa.\n  => ";
+    char textoMenuConstruir[] = "\n  Elija que opcion desea realizar: \n\t 1) Construir pilas.\n\t 2) Construir colas.\n\t 3) Construir listas. \n\t 4) Volver atras. \n  => ";
+    char textoMenuVisualizar[] = "\n  Elija que opcion desea realizar: \n\t 1) Visualizar pilas.\n\t 2) Visualizar colas.\n\t 3) Visualizar listas. \n\t 4) Volver atras. \n  => ";
+
     char Cadena[MAX_CAR * 3 + 2];
     char *cpToken;
     int FlgSalir;
@@ -70,21 +76,70 @@ int main(void)
     tPosicion pPos;
     char Let_cola;
     char name[N];
+    do
+    {
+        switch (Menu(textoMenuPrincipal, 1, 6))
+        {
+        case OPCION_UNO: // 1) Leer fichero.
+            // Se calcula el número de usuarios existentes
+            CalculaUsuarios(pf_usuarios, &num_usuarios);
+            // Se le asigna memoria dinámica al puntero que apunta a los usuarios
+            pElemento = (tElemento *)malloc(num_usuarios * sizeof(tElemento));
+            // Se lee y guarda el fichero
+            LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
+            break;
+        case OPCION_DOS: // 2) Construir estructuras.
+            switch (Menu(textoMenuConstruir, 1, 4))
+            {
+            case OPCION_UNO: // 1) Construir pilas.
+                ConstruirPila(pPila1, pElemento, num_usuarios);
+                VisualizarPila(pPila1, pPila2);
+                break;
+            case OPCION_DOS: // 2) Construir colas.
+                break;
+            case OPCION_TRES: // 3) Construir listas.
+                break;
+            case OPCION_CUATRO: // 4) Volver atras.
+                break;
+            }
+            break;
+        case OPCION_TRES: // 3) Extraer nombres pila.
+            break;
+        case OPCION_CUATRO: // 4) Extraer nombres cola.
+            break;
+        case OPCION_CINCO: // 5) Visualizar estructuras
+            switch (Menu(textoMenuVisualizar, 1, 3))
+            {
+            case OPCION_UNO: // 1) Construir pilas.
+                break;
+            case OPCION_DOS: // 2) Construir colas.
+                break;
+            case OPCION_TRES: // 3) Construir listas.
+                break;
+            case OPCION_CUATRO: // 4) Volver atras.
+                break;
+            }
+        case OPCION_SEIS: // 6) Salir del programa.
+            exit(1);
+            break;
+        }
+    } while (1);
 
-    /* Lectura del fichero */
-    // Se calcula el número de usuarios existentes
-    CalculaUsuarios(pf_usuarios, &num_usuarios);
-    // Se le asigna memoria dinámica al puntero que apunta a los usuarios
-    pElemento = (tElemento *)malloc(num_usuarios * sizeof(tElemento));
-    // Se lee y guarda el fichero
-    LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
-    ConstruirPila(pPila1, pElemento, num_usuarios);
     // Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
     printf("Introduzca una letra: ");
     scanf("%c", Let_cola);
-
     scanf("%d");
     return 0;
+}
+
+int Menu(char texto[], int limite_inferior, int limite_superior)
+{
+    int opcion;
+    do
+    {
+        printf("%s", texto);
+        scanf("%d", &opcion);
+    } while (opcion < limite_inferior || opcion > limite_superior);
 }
 
 void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios)
@@ -157,7 +212,6 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
     for (int i = 0; i < num_usuarios; i++)
     {
         Apilar(pPila1, *pElemento);
-        pElemento++;
     }
     return pPila1;
 }

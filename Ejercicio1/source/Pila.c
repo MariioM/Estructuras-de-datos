@@ -22,9 +22,14 @@ tPila *CrearPila()
    return pila;
 }
 
-void VisualizarPila(tPila *p)
+void VisualizarPila(tPila *pila, tPila *pilaAux)
 {
-   printf("Visualiza");
+   while (pila->cima != NULL)
+   {
+      printf("%s\n", pila->cima);
+      pilaAux->cima = pila->cima;
+      Desapilar(pila, pila->cima);
+   }
 }
 
 int CalcularNumElementos(tPila *p)
