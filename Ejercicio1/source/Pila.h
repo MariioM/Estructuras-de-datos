@@ -17,7 +17,7 @@ typedef struct pila
 extern tPila *Apilar(tPila *p, tElemento Ele);
 /// @brief Imprime los elementos de la pila.
 /// @param p Pila.
-extern void VisualizarPila(tPila *p, tPila *pilaAux);
+extern void VisualizarPila(tPila *p, tPila *pilaAux, int num_usuarios);
 /// @brief Calcula el número de elementos de la pila.
 /// @param p Pila.
 /// @return Número de elementos.
@@ -26,7 +26,7 @@ extern int CalcularNumElementos(tPila *p);
 /// @param p Pila
 /// @param e Elemento
 /// @return Pila sin el elemento de la cima.
-extern tPila *Desapilar(tPila *p, tElemento *e);
+extern tPila *Desapilar(tPila *p);
 /// @brief
 /// @param pPila Puntero a la pila
 extern void IntercambiarParesImparesPila(tPila **pPila);

@@ -22,13 +22,13 @@ tPila *CrearPila()
    return pila;
 }
 
-void VisualizarPila(tPila *pila, tPila *pilaAux)
+void VisualizarPila(tPila *pila, tPila *pilaAux, int num_usuarios)
 {
-   while (pila->cima != NULL)
+   for (int i = 0; i < num_usuarios; i++)
    {
-      printf("%s\n", pila->cima);
+      printf("%s\n", pila->cima->Elem);
       pilaAux->cima = pila->cima;
-      Desapilar(pila, pila->cima);
+      Desapilar(pila);
    }
 }
 
@@ -45,7 +45,7 @@ int CalcularNumElementos(tPila *p)
    return longitud;
 }
 
-tPila *Desapilar(tPila *p, tElemento *e)
+tPila *Desapilar(tPila *p)
 {
    if (p != NULL)
    {

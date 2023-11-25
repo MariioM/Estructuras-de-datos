@@ -76,6 +76,19 @@ int main(void)
     tPosicion pPos;
     char Let_cola;
     char name[N];
+
+    // Se calcula el número de usuarios existentes
+    CalculaUsuarios(pf_usuarios, &num_usuarios);
+    // Se le asigna memoria dinámica al puntero que apunta a los usuarios
+    pElemento = (tElemento *)malloc(num_usuarios * sizeof(tElemento));
+    // Se lee y guarda el fichero
+    LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
+    pPila1 = CrearPila();
+    pPila2 = CrearPila();
+    ConstruirPila(pPila1, pElemento, num_usuarios);
+    // TEST
+    VisualizarPila(pPila1, pPila2, num_usuarios);
+    scanf("%d");
     do
     {
         switch (Menu(textoMenuPrincipal, 1, 6))
@@ -92,9 +105,12 @@ int main(void)
             switch (Menu(textoMenuConstruir, 1, 4))
             {
             case OPCION_UNO: // 1) Construir pilas.
+                pPila1 = CrearPila();
+                pPila2 = CrearPila();
                 ConstruirPila(pPila1, pElemento, num_usuarios);
                 // TEST
-                VisualizarPila(pPila1, pPila2);
+                VisualizarPila(pPila1, pPila2, num_usuarios);
+                scanf("%d");
                 break;
             case OPCION_DOS: // 2) Construir colas.
                 break;
@@ -207,7 +223,6 @@ void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
 
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
 {
-    pPila1 = CrearPila();
     pElemento = (tElemento *)malloc(sizeof(tElemento));
     for (int i = 0; i < num_usuarios; i++)
     {
