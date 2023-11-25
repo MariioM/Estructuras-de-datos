@@ -28,7 +28,7 @@ void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios);
 int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lineaDatos[]);
 void Pausar(void);
 void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento);
-tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento);
+tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios);
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra);
 tCola ExtraerColaOrden(tCola Cola, char Letra);
@@ -78,8 +78,8 @@ int main(void)
     pElemento = (tElemento *)malloc(num_usuarios * sizeof(tElemento));
     // Se lee y guarda el fichero
     LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
-    ConstruirPila(pPila1, pElemento);
-    Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
+    ConstruirPila(pPila1, pElemento, num_usuarios);
+    // Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
     printf("Introduzca una letra: ");
     scanf("%c", Let_cola);
 
@@ -150,15 +150,16 @@ void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
 {
 }
 
-tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento)
+tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
 {
     pPila1 = CrearPila();
     pElemento = (tElemento *)malloc(sizeof(tElemento));
-    while (pElemento != NULL)
+    for (int i = 0; i < num_usuarios; i++)
     {
         Apilar(pPila1, *pElemento);
         pElemento++;
     }
+    return pPila1;
 }
 
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)

@@ -11,7 +11,6 @@
 tPila *Apilar(tPila *p, tElemento Ele)
 {
    tNodo *nodo = CrearNodo(Ele);
-   p = (tPila *)malloc(sizeof(tPila));
    nodo->Sig = p->cima;
    p->cima = nodo;
 }
