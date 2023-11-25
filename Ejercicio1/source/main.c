@@ -29,7 +29,7 @@ void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios);
 int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lineaDatos[]);
 void Pausar(void);
 void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento);
-tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento);
+tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios);
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra);
 tCola ExtraerColaOrden(tCola Cola, char Letra);
@@ -76,7 +76,6 @@ int main(void)
     tPosicion pPos;
     char Let_cola;
     char name[N];
-
     do
     {
         switch (Menu(textoMenuPrincipal, 1, 6))
@@ -123,7 +122,19 @@ int main(void)
             break;
         }
     } while (1);
+    /* Lectura del fichero */
+    // Se calcula el número de usuarios existentes
+    CalculaUsuarios(pf_usuarios, &num_usuarios);
+    // Se le asigna memoria dinámica al puntero que apunta a los usuarios
+    pElemento = (tElemento *)malloc(num_usuarios * sizeof(tElemento));
+    // Se lee y guarda el fichero
+    LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
+    ConstruirPila(pPila1, pElemento, num_usuarios);
+    // Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
+    printf("Introduzca una letra: ");
+    scanf("%c", Let_cola);
 
+    scanf("%d");
     return 0;
 }
 
@@ -198,16 +209,17 @@ void Pausar(void)
 
 void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
 {
-    while (pElemento != NULL)
+}
+
+tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
+{
+    pPila1 = CrearPila();
+    pElemento = (tElemento *)malloc(sizeof(tElemento));
+    for (int i = 0; i < num_usuarios; i++)
     {
         Apilar(pPila1, *pElemento);
     }
-}
-
-tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento)
-{
-
-    /* A rellenar por el alumno */
+    return pPila1;
 }
 
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)

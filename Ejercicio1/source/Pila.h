@@ -33,3 +33,6 @@ extern void IntercambiarParesImparesPila(tPila **pPila);
 /// @brief
 /// @param pPila Puntero a la pila
 extern void EliminarParesPila(tPila **pPila);
+/// @brief Crea pila vacia
+/// @return Pila vacía
+extern tPila *CrearPila();
