@@ -32,7 +32,8 @@ void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento);
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios);
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra);
-tCola ExtraerColaOrden(tCola Cola, char Letra);
+tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, int num_usuarios);
+char PedirLetra();
 
 int main(void)
 {
@@ -44,6 +45,7 @@ int main(void)
     // Colas
     tCola Cola1;
     tCola Cola2;
+    tCola ColaAux;
 
     // Listas
     tLista pLista;
@@ -74,8 +76,11 @@ int main(void)
     int Pos;
     tElemento Elemento;
     tPosicion pPos;
-    char Let_cola;
     char name[N];
+    char Let_cola;
+    //CAMBIARDESPUES
+    printf("Escoja una letra: ");
+    scanf("%c", &Let_cola);
     do
     {
         switch (Menu(textoMenuPrincipal, 1, 6))
@@ -94,6 +99,7 @@ int main(void)
             case OPCION_UNO: // 1) Construir pilas.
                 break;
             case OPCION_DOS: // 2) Construir colas.
+                Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
                 break;
             case OPCION_TRES: // 3) Construir listas.
                 break;
@@ -104,6 +110,22 @@ int main(void)
         case OPCION_TRES: // 3) Extraer nombres pila.
             break;
         case OPCION_CUATRO: // 4) Extraer nombres cola.
+            Let_cola = PedirLetra();
+            Cola2 = CrearCola();
+            ColaAux = CrearCola();
+
+            // ExtraerColaOrden toma la Cola1, que es la que contiene en un principio todos los nombres, y trabajará sobre
+            // ella para devolver en Cola2 los nombres con la letra buscada, y en ColaAux la cola sin esos nombres. Le paso por parámetro la letra
+            // y el número de usuarios para facilitar la ejecución.
+            Cola1 = ExtraerColaOrden(&Cola1, Let_cola, &Cola2, &ColaAux, num_usuarios);
+            printf("______________________\n");
+            printf("Cola con los nombres: \n");
+            VerCola(Cola2);
+            printf("_______________________\n");
+            printf("Cola sin esos nombres: \n");
+            VerCola(ColaAux);
+
+            scanf("%d");
             break;
         case OPCION_CINCO: // 5) Visualizar estructuras
             switch (Menu(textoMenuVisualizar, 1, 3))
@@ -131,10 +153,7 @@ int main(void)
     LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
     ConstruirPila(pPila1, pElemento, num_usuarios);
     // Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
-    printf("Introduzca una letra: ");
-    scanf("%c", Let_cola);
 
-    scanf("%d");
     return 0;
 }
 
@@ -230,7 +249,7 @@ tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)
         Encolar(pCola1, *pElemento);
         pElemento++;
     }
-    printf("Exito");
+    return *pCola1;
 }
 
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra)
@@ -238,8 +257,66 @@ tPila *ExtraerPilaOrden(tPila *pPila, char Letra)
 
     /* A rellenar por el alumno */
 }
-
-tCola ExtraerColaOrden(tCola Cola, char Letra)
+tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, int num_usuarios)
 {
-    /* A rellenar por el alumno */
+    // El nodo buscado será repetitivamente igualado a la cabeza de la Cola1, que irá cambiando a medida que se vaya desencolando
+    tNodo *buscado;
+    // Name será usado para poder comparar la letra buscada con la primera letra de cada nombre.
+    char name[60];
+    int i = 0;
+    while (i < num_usuarios)
+    {
+        // Asigno la cabeza al buscado
+        buscado = pCola1->pCab;
+        strcpy(name, buscado->Elem.Nombre);
+        if (Letra == name[0])
+        {
+            // Si la letra coincide, el proceso será encolar dicho nombre, su apellido y su pass en la Cola2, y posteriormente desencolar la Cola1,
+            // Que acabará vacía al final del while
+            Encolar(pCola2, buscado->Elem);
+            if (EsColaVacia(pCola1))
+            {
+                printf("ERR_404. La cola está vacía.");
+                break;
+            }
+            else
+            {
+                Desencolar(pCola1);
+            }
+        }
+        else if (name[0] = "\n" && Letra == name[1])
+        {
+            // En algunos casos, el fichero ha guardado un "\n" antes del nombre, por lo que tendremos que comprobar también esta premisa
+            Encolar(pCola2, buscado->Elem);
+            if (EsColaVacia(pCola1))
+            {
+                printf("ERR_404. La cola está vacía.");
+            }
+            else
+            {
+                Desencolar(pCola1);
+            }
+        }
+        else
+        {
+            // Si la letra no coincide, simplemente encolamos en la auxiliar, que contendrá la cola sin los nombres buscamos, y desencolamos de cola1, para que la cabeza
+            // se mueva a la siguiente posición.
+            Encolar(pAux, buscado->Elem);
+            if (EsColaVacia(pCola1))
+            {
+                printf("ERR_404. La cola está vacía.");
+            }
+            else
+            {
+                Desencolar(pCola1);
+            }
+        }
+        i++;
+    }
+    // MEdiante la funcion CalcularNumElementosC, veremos cuantos usuarios hay en cada cola. La cola1 obviamente tendrá 0 usuarios al acabar el while.
+    printf("____________________________________________________________________________________\n");
+    printf("La cola con los nombres que empiezan por la letra %c está compuesta por %d usuarios.\n", Letra, CalcularNumElementosC(pCola2));
+    printf("____________________________________________________________________________________\n");
+    printf("La cola con los nombres que no empiezan por la letra %c está compuesta por %d usuarios.\n", Letra, CalcularNumElementosC(pAux));
+    printf("____________________________________________________________________________________\n");
 }

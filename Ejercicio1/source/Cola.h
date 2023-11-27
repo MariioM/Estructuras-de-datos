@@ -20,7 +20,7 @@ extern void Encolar(tCola *c, tElemento E);
 /// @brief Elimina el elemento del principio de la cola.
 /// @param c Puntero a la cola
 /// @param E Elemento
-extern void Desencolar(tCola *c, tElemento *E);
+extern void Desencolar(tCola *c);
 /// @brief Comprueba si la cola está vacía.
 /// @param c Puntero a la cola
 /// @return NULL si la cola está vacía.
@@ -28,7 +28,7 @@ extern int EsColaVacia(tCola *c);
 /// @brief Imprime los elementos de la cola.
 /// @param c Puntero a la cola
 /// @return
-extern int VerCola(tCola c);
+extern void VerCola(tCola c);
 /// @brief Calcula el número de elementos de la cola.
 /// @param c Puntero a la cola
 /// @return Número de elementos.
