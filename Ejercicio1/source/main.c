@@ -87,6 +87,7 @@ int main(void)
     pPila2 = CrearPila();
     ConstruirPila(pPila1, pElemento, num_usuarios);
     // TEST
+    printf("CONSTRUCCIÓN PILA");
     VisualizarPila(pPila1, pPila2, num_usuarios);
     scanf("%d");
     do

@@ -26,7 +26,7 @@ void VisualizarPila(tPila *pila, tPila *pilaAux, int num_usuarios)
 {
    for (int i = 0; i < num_usuarios; i++)
    {
-      printf("%s\n", pila->cima->Elem);
+      printf("Nombre: %s Apellido: %s Password: %s \n", pila->cima->Elem.Nombre, pila->cima->Elem.Apellido, pila->cima->Elem.Password);
       pilaAux->cima = pila->cima;
       Desapilar(pila);
    }
