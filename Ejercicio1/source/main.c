@@ -116,8 +116,11 @@ int main(void)
         case OPCION_TRES: // 3) Extraer nombres pila.
             break;
         case OPCION_CUATRO: // 4) Extraer nombres cola.
+            // Se pide que el usuario meta una letra
             Let_cola = PedirLetra();
+            // Se crea una cola
             Cola2 = CrearCola();
+            // Se crea una cola auxiliar
             ColaAux = CrearCola();
 
             // ExtraerColaOrden toma la Cola1, que es la que contiene en un principio todos los nombres, y trabajará sobre
