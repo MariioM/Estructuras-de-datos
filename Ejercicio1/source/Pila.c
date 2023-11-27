@@ -22,9 +22,14 @@ tPila *CrearPila()
    return pila;
 }
 
-void VisualizarPila(tPila *p)
+void VisualizarPila(tPila *pila, int num_usuarios)
 {
-   printf("Visualiza");
+   tNodo *nodo = pila->cima;
+   while (nodo != NULL)
+   {
+      printf("Pila Nombre: %s Pila Apellido: %sPila Password: %s\n", nodo->Elem.Nombre, nodo->Elem.Apellido, nodo->Elem.Password);
+      nodo = nodo->Sig;
+   }
 }
 
 int CalcularNumElementos(tPila *p)
@@ -40,7 +45,7 @@ int CalcularNumElementos(tPila *p)
    return longitud;
 }
 
-tPila *Desapilar(tPila *p, tElemento *e)
+tPila *Desapilar(tPila *p)
 {
    if (p != NULL)
    {

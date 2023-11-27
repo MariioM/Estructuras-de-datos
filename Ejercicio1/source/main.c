@@ -95,6 +95,12 @@ int main(void)
             switch (Menu(textoMenuConstruir, 1, 4))
             {
             case OPCION_UNO: // 1) Construir pilas.
+                pPila1 = CrearPila();
+                pPila2 = CrearPila();
+                ConstruirPila(pPila1, pElemento, num_usuarios);
+                // TEST
+                VisualizarPila(pPila1, num_usuarios);
+                scanf("%d");
                 break;
             case OPCION_DOS: // 2) Construir colas.
                 Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
@@ -142,15 +148,10 @@ int main(void)
             break;
         }
     } while (1);
-    /* Lectura del fichero */
-    // Se calcula el número de usuarios existentes
-    CalculaUsuarios(pf_usuarios, &num_usuarios);
-    // Se le asigna memoria dinámica al puntero que apunta a los usuarios
-    pElemento = (tElemento *)malloc(num_usuarios * sizeof(tElemento));
-    // Se lee y guarda el fichero
-    LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
-    ConstruirPila(pPila1, pElemento, num_usuarios);
     // Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
+    printf("Introduzca una letra: ");
+    scanf("%c", Let_cola);
+    scanf("%d");
 
     return 0;
 }
@@ -213,7 +214,7 @@ int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lin
     printf("Datos almacenados:\n");
     for (int i = 0; i < num_usuarios; i++)
     {
-        printf("Nombre: %s\nApellido: %s\nPassword: %s\n", usuario->Nombre, usuario->Apellido, usuario->Password);
+        printf("Name: %s\nApellido: %s\nPassword: %s\n", usuario->Nombre, usuario->Apellido, usuario->Password);
         usuario++;
     }
     return 0; // Devuelve 0 para indicar éxito
@@ -230,11 +231,10 @@ void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
 
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
 {
-    pPila1 = CrearPila();
-    pElemento = (tElemento *)malloc(sizeof(tElemento));
     for (int i = 0; i < num_usuarios; i++)
     {
         Apilar(pPila1, *pElemento);
+        pElemento++;
     }
     return pPila1;
 }
