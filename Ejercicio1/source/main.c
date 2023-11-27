@@ -87,7 +87,7 @@ int main(void)
     pPila2 = CrearPila();
     ConstruirPila(pPila1, pElemento, num_usuarios);
     // TEST
-    printf("CONSTRUCCIÓN PILA");
+    printf("CONSTRUCCIÓN PILA\n\n\n");
     VisualizarPila(pPila1, pPila2, num_usuarios);
     scanf("%d");
     do
@@ -207,7 +207,7 @@ int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lin
     printf("Datos almacenados:\n");
     for (int i = 0; i < num_usuarios; i++)
     {
-        printf("Nombre: %s\nApellido: %s\nPassword: %s\n", usuario->Nombre, usuario->Apellido, usuario->Password);
+        printf("Name: %s\nApellido: %s\nPassword: %s\n", usuario->Nombre, usuario->Apellido, usuario->Password);
         usuario++;
     }
     return 0; // Devuelve 0 para indicar éxito
@@ -228,6 +228,7 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
     for (int i = 0; i < num_usuarios; i++)
     {
         Apilar(pPila1, *pElemento);
+        pElemento++;
     }
     return pPila1;
 }

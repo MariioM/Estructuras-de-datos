@@ -24,14 +24,14 @@ tPila *CrearPila()
 
 void VisualizarPila(tPila *pila, tPila *pilaAux, int num_usuarios)
 {
-   for (int i = 0; i < num_usuarios; i++)
+   for (int i = 0; i < num_usuarios && EsPilaVacia(pila); i++)
    {
-      printf("Nombre: %s Apellido: %s Password: %s \n", pila->cima->Elem.Nombre, pila->cima->Elem.Apellido, pila->cima->Elem.Password);
+      printf("Pila Nombre: %s Pila Apellido: %sPila Password: %s\n", pila->cima->Elem.Nombre, pila->cima->Elem.Apellido, pila->cima->Elem.Password);
       pilaAux->cima = pila->cima;
       Desapilar(pila);
    }
 }
-
+ 
 int CalcularNumElementos(tPila *p)
 {
    int longitud = 0;
