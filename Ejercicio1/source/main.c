@@ -33,7 +33,6 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios);
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra);
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, int num_usuarios);
-char PedirLetra();
 
 int main(void)
 {
@@ -78,7 +77,6 @@ int main(void)
     tPosicion pPos;
     char name[N];
     char Let_cola;
-    // CAMBIARDESPUES
     do
     {
         switch (Menu(textoMenuPrincipal, 1, 6))
