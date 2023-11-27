@@ -8,20 +8,37 @@
 #include "Lista.h"
 #include "Err.h"
 
-tLista CrearLista()
+tLista *CrearLista()
 {
-    tLista lista;
-    lista.Primero = NULL;
-    lista.Ultimo = NULL;
+    tLista *lista = (tLista *)malloc(sizeof(tLista));
+    lista->Primero = NULL;
+    lista->Ultimo = NULL;
     return lista;
 }
 
 tLista Insertar(tLista l, tElemento e, tPosicion p)
 {
+    // Crear un nuevo nodo
     tNodo *nuevo;
     nuevo = (tNodo *)malloc(sizeof(tNodo));
+
+    // Asignar el elemento al nuevo nodo
     nuevo->Elem = e;
     nuevo->Sig = l.Primero;
+
+    // recolocar punteros
+    if (EsListaVacia(l))
+    {
+        l.Primero = nuevo;
+        l.Ultimo = nuevo;
+    }
+    else
+    {
+        l.Ultimo->Sig = nuevo;
+        l.Ultimo = nuevo;
+    }
+
+    return l;
 }
 
 tLista Borrar(tLista l, tPosicion p)
@@ -98,12 +115,12 @@ int EsListaVacia(tLista l)
 
 tPosicion ConseguirPosicionFin(tLista l)
 {
-    /* A rellenar por el alumno */
+    return l.Ultimo;
 }
 
 tPosicion ConseguirPosicionPrincipio(tLista l)
 {
-    /* A rellenar por el alumno */
+    return l.Primero;
 }
 
 tPosicion ConseguirPosicionSiguiente(tPosicion p)

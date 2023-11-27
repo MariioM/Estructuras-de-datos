@@ -12,7 +12,7 @@ typedef struct
 
 /// @brief Crea una lista vacía.
 /// @return Lista vacía.
-extern tLista CrearLista();
+extern tLista *CrearLista();
 /// @brief Inserta e en la posición p+1 de la lista l. Los elementos que estan a partir de la posición p+1 se desplazan una posición.
 /// @param l Lista
 /// @param e Elemento

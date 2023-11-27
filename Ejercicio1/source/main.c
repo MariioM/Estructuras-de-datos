@@ -70,7 +70,6 @@ int main(void)
     char textoMenuPrincipal[] = "\n  Elija que quiere hacer: \n\t 1) Leer fichero.\n\t 2) Construir estructuras.\n\t 3) Extraer nombres pila. \n\t 4) Extraer nombres cola. \n\t 5) Visualizar estructuras \n\t 6) Salir del programa.\n  => ";
     char textoMenuVisualizar[] = "\n  Elija que opcion desea realizar: \n\t 1) Visualizar pilas.\n\t 2) Visualizar colas.\n\t 3) Visualizar listas. \n\t 4) Volver atras. \n  => ";
 
-    char Cadena[MAX_CAR * 3 + 2];
     char *cpToken;
     int FlgSalir;
     int TipoOperacion;
@@ -80,7 +79,6 @@ int main(void)
     int k;
     int j;
     int Pos;
-    tElemento Elemento;
     tPosicion pPos;
     char name[N];
     char Let_cola;
@@ -263,20 +261,20 @@ tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)
 
 void ContruirLista(tLista *pLista, tElemento *pElemento, int num_usuario)
 {
+    pLista = CrearLista();
     for (int i = 0; i < num_usuario; i++)
     {
-        Insertar((*pLista), *pElemento, Fin(*pLista));
+        *pLista = Insertar((*pLista), *pElemento, ConseguirPosicionFin(*pLista));
         pElemento++;
     }
 }
-
-
 
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra)
 {
 
     /* A rellenar por el alumno */
 }
+
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, int num_usuarios)
 {
     // El nodo buscado será repetitivamente igualado a la cabeza de la Cola1, que irá cambiando a medida que se vaya desencolando
