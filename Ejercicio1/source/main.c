@@ -79,8 +79,6 @@ int main(void)
     char name[N];
     char Let_cola;
     // CAMBIARDESPUES
-    printf("Escoja una letra: ");
-    scanf("%c", &Let_cola);
     do
     {
         switch (Menu(textoMenuPrincipal, 1, 6))
@@ -116,9 +114,10 @@ int main(void)
         case OPCION_TRES: // 3) Extraer nombres pila.
             break;
         case OPCION_CUATRO: // 4) Extraer nombres cola.
-            // Se pide que el usuario meta una letra
-            Let_cola = PedirLetra();
-            // Se crea una cola
+            fflush(stdin);
+            printf("Escoja una letra: ");
+            scanf("%c", &Let_cola);
+
             Cola2 = CrearCola();
             // Se crea una cola auxiliar
             ColaAux = CrearCola();
@@ -127,10 +126,8 @@ int main(void)
             // ella para devolver en Cola2 los nombres con la letra buscada, y en ColaAux la cola sin esos nombres. Le paso por parámetro la letra
             // y el número de usuarios para facilitar la ejecución.
             Cola1 = ExtraerColaOrden(&Cola1, Let_cola, &Cola2, &ColaAux, num_usuarios);
-            printf("______________________\n");
             printf("Cola con los nombres: \n");
             VerCola(Cola2);
-            printf("_______________________\n");
             printf("Cola sin esos nombres: \n");
             VerCola(ColaAux);
 
@@ -317,9 +314,6 @@ tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, in
         i++;
     }
     // MEdiante la funcion CalcularNumElementosC, veremos cuantos usuarios hay en cada cola. La cola1 obviamente tendrá 0 usuarios al acabar el while.
-    printf("____________________________________________________________________________________\n");
     printf("La cola con los nombres que empiezan por la letra %c está compuesta por %d usuarios.\n", Letra, CalcularNumElementosC(pCola2));
-    printf("____________________________________________________________________________________\n");
     printf("La cola con los nombres que no empiezan por la letra %c está compuesta por %d usuarios.\n", Letra, CalcularNumElementosC(pAux));
-    printf("____________________________________________________________________________________\n");
 }
