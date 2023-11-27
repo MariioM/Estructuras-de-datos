@@ -88,7 +88,7 @@ int main(void)
     ConstruirPila(pPila1, pElemento, num_usuarios);
     // TEST
     printf("CONSTRUCCIÓN PILA\n\n\n");
-    VisualizarPila(pPila1, pPila2, num_usuarios);
+    VisualizarPila(pPila1, num_usuarios);
     scanf("%d");
     do
     {
@@ -110,7 +110,7 @@ int main(void)
                 pPila2 = CrearPila();
                 ConstruirPila(pPila1, pElemento, num_usuarios);
                 // TEST
-                VisualizarPila(pPila1, pPila2, num_usuarios);
+                VisualizarPila(pPila1, num_usuarios);
                 scanf("%d");
                 break;
             case OPCION_DOS: // 2) Construir colas.
@@ -224,7 +224,6 @@ void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
 
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
 {
-    pElemento = (tElemento *)malloc(sizeof(tElemento));
     for (int i = 0; i < num_usuarios; i++)
     {
         Apilar(pPila1, *pElemento);

@@ -17,7 +17,7 @@ typedef struct pila
 extern tPila *Apilar(tPila *p, tElemento Ele);
 /// @brief Imprime los elementos de la pila.
 /// @param p Pila.
-extern void VisualizarPila(tPila *p, tPila *pilaAux, int num_usuarios);
+extern void VisualizarPila(tPila *pila, int num_usuarios);
 /// @brief Calcula el número de elementos de la pila.
 /// @param p Pila.
 /// @return Número de elementos.
