@@ -25,12 +25,14 @@
 #define N 50
 
 int Menu();
+void MenuConstruir(tPila *pPila1, tPila *pPila2, tCola *Cola1, tCola *Cola2, tLista *pLista, tElemento *pElemento, int num_usuarios);
 void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios);
 int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lineaDatos[]);
 void Pausar(void);
 void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento);
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios);
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
+void ContruirLista(tLista *pLista, tElemento *pElemento, int num_usuario);
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra);
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, int num_usuarios);
 
@@ -52,10 +54,20 @@ int main(void)
     // Fichero
     FILE *pf_usuarios;
     int num_usuarios;
+    char Cadena[MAX_CAR * 3 + 2];
+
+    // Elementos
+    tElemento e;
+    tElemento *pElemento;
+    tElemento Elemento;
+
+    // Información Usuario
+    char Nombre[MAX_CAR];
+    char Apellido[MAX_CAR];
+    char Password[MAX_CAR];
 
     // Textos Menus
     char textoMenuPrincipal[] = "\n  Elija que quiere hacer: \n\t 1) Leer fichero.\n\t 2) Construir estructuras.\n\t 3) Extraer nombres pila. \n\t 4) Extraer nombres cola. \n\t 5) Visualizar estructuras \n\t 6) Salir del programa.\n  => ";
-    char textoMenuConstruir[] = "\n  Elija que opcion desea realizar: \n\t 1) Construir pilas.\n\t 2) Construir colas.\n\t 3) Construir listas. \n\t 4) Volver atras. \n  => ";
     char textoMenuVisualizar[] = "\n  Elija que opcion desea realizar: \n\t 1) Visualizar pilas.\n\t 2) Visualizar colas.\n\t 3) Visualizar listas. \n\t 4) Volver atras. \n  => ";
 
     char Cadena[MAX_CAR * 3 + 2];
@@ -64,12 +76,7 @@ int main(void)
     int TipoOperacion;
     int Num1, Num2, i;
     int Res, Num;
-    tElemento e;
-    tElemento *pElemento;
     int LongI, LatI;
-    char Nombre[MAX_CAR];
-    char Apellido[MAX_CAR];
-    char Password[MAX_CAR];
     int k;
     int j;
     int Pos;
@@ -90,24 +97,7 @@ int main(void)
             LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
             break;
         case OPCION_DOS: // 2) Construir estructuras.
-            switch (Menu(textoMenuConstruir, 1, 4))
-            {
-            case OPCION_UNO: // 1) Construir pilas.
-                pPila1 = CrearPila();
-                pPila2 = CrearPila();
-                ConstruirPila(pPila1, pElemento, num_usuarios);
-                // TEST
-                VisualizarPila(pPila1, num_usuarios);
-                scanf("%d");
-                break;
-            case OPCION_DOS: // 2) Construir colas.
-                Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
-                break;
-            case OPCION_TRES: // 3) Construir listas.
-                break;
-            case OPCION_CUATRO: // 4) Volver atras.
-                break;
-            }
+            MenuConstruir(pPila1, pPila2, &Cola1, &Cola2, &pLista, pElemento, num_usuarios);
             break;
         case OPCION_TRES: // 3) Extraer nombres pila.
             break;
@@ -134,11 +124,11 @@ int main(void)
         case OPCION_CINCO: // 5) Visualizar estructuras
             switch (Menu(textoMenuVisualizar, 1, 3))
             {
-            case OPCION_UNO: // 1) Construir pilas.
+            case OPCION_UNO: // 1) Visualizar pilas.
                 break;
-            case OPCION_DOS: // 2) Construir colas.
+            case OPCION_DOS: // 2) Visualizar colas.
                 break;
-            case OPCION_TRES: // 3) Construir listas.
+            case OPCION_TRES: // 3) Visualizar listas.
                 break;
             case OPCION_CUATRO: // 4) Volver atras.
                 break;
@@ -154,6 +144,27 @@ int main(void)
     scanf("%d");
 
     return 0;
+}
+
+void MenuConstruir(tPila *pPila1, tPila *pPila2, tCola *Cola1, tCola *Cola2, tLista *pLista, tElemento *pElemento, int num_usuarios)
+{
+    char textoMenuConstruir[] = "\n  Elija que opcion desea realizar: \n\t 1) Construir pilas.\n\t 2) Construir colas.\n\t 3) Construir listas. \n\t 4) Volver atras. \n  => ";
+
+    switch (Menu(textoMenuConstruir, 1, 4))
+    {
+    case OPCION_UNO: // 1) Construir pilas.
+        ConstruirPilas(pPila1, pPila2, pElemento);
+        break;
+    case OPCION_DOS: // 2) Construir colas.
+        (*Cola1) = ConstruirCola(&(*Cola1), pElemento, num_usuarios);
+        (*Cola2) = ConstruirCola(&(*Cola2), pElemento, num_usuarios);
+        break;
+    case OPCION_TRES: // 3) Construir listas.
+        ContruirLista(&(*pLista), pElemento, num_usuarios);
+        break;
+    case OPCION_CUATRO: // 4) Volver atras.
+        break;
+    }
 }
 
 int Menu(char texto[], int limite_inferior, int limite_superior)
@@ -249,6 +260,17 @@ tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)
     }
     return *pCola1;
 }
+
+void ContruirLista(tLista *pLista, tElemento *pElemento, int num_usuario)
+{
+    for (int i = 0; i < num_usuario; i++)
+    {
+        Insertar((*pLista), *pElemento, Fin(*pLista));
+        pElemento++;
+    }
+}
+
+
 
 tPila *ExtraerPilaOrden(tPila *pPila, char Letra)
 {
