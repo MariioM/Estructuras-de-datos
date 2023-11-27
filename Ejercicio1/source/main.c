@@ -81,19 +81,6 @@ int main(void)
     // CAMBIARDESPUES
     printf("Escoja una letra: ");
     scanf("%c", &Let_cola);
-    // Se calcula el número de usuarios existentes
-    CalculaUsuarios(pf_usuarios, &num_usuarios);
-    // Se le asigna memoria dinámica al puntero que apunta a los usuarios
-    pElemento = (tElemento *)malloc(num_usuarios * sizeof(tElemento));
-    // Se lee y guarda el fichero
-    LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
-    pPila1 = CrearPila();
-    pPila2 = CrearPila();
-    ConstruirPila(pPila1, pElemento, num_usuarios);
-    // TEST
-    printf("CONSTRUCCIÓN PILA\n\n\n");
-    VisualizarPila(pPila1, num_usuarios);
-    scanf("%d");
     do
     {
         switch (Menu(textoMenuPrincipal, 1, 6))
