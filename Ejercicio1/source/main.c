@@ -33,7 +33,6 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios);
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
 void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios, int *aux1, int *aux2);
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, int num_usuarios);
-char PedirLetra();
 
 int main(void)
 {
@@ -79,7 +78,7 @@ int main(void)
     char name[N];
     char Let_cola;
     char Let_pila;
-    // CAMBIARDESPUES
+
     do
     {
         switch (Menu(textoMenuPrincipal, 1, 6))
@@ -124,7 +123,9 @@ int main(void)
             fflush(stdin);
             printf("Escoja una letra: ");
             scanf("%c", &Let_cola);
+
             Cola2 = CrearCola();
+            // Se crea una cola auxiliar
             ColaAux = CrearCola();
 
             // ExtraerColaOrden toma la Cola1, que es la que contiene en un principio todos los nombres, y trabajará sobre
