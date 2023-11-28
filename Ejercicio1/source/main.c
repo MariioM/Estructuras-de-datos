@@ -24,86 +24,60 @@
 #define NUM_CHAR_FICH 50
 #define N 50
 
-/// @brief Menú que permite al usuario navegar entre las diferentes opciones.
-/// @return Entero que representa la opción elegida por el usuario.
 int Menu();
-/// @brief Calcula el número total de usuarios que contiene el fichero.
-/// @param pf_usuarios  Puntero al fichero que contiene los datos.
-/// @param num_usuarios Puntero al número de usuarios.
 void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios);
-/// @brief Lee el fichero y guarda los datos en un puntero de tipo tElemento
-/// @param pf_usuarios Puntero al fichero que contiene los datos
-/// @param usuario Puntero al elemento que controla los datos de los usuarios
-/// @param num_usuarios Puntero al número de usuarios
-/// @param lineaDatos Cadena de caracteres que contiene los datos de los usuarios
-/// @return Devuelve 0 si se ha leído correctamente, y -1 si ha habido algún error
 int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lineaDatos[]);
-/// @brief Gestiona la construcción de las pilas
-/// @param pPila1 Puntero a la pila que se va a construir
-/// @param pElemento Puntero al elemento que contiene los datos de los usuarios
-/// @param num_usuarios Número de usuarios
-/// @return Puntero a la pila construida
+void Pausar(void);
+void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento);
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios);
-/// @brief Gestiona la construcción de las colas
-/// @param pCola1 Puntero a la cola que se va a construir
-/// @param pElemento Puntero al elemento que contiene los datos de los usuarios
-/// @param num_usuario Número de usuarios
-/// @return Cola construida
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
-/// @brief Gestiona la construcción de las listas
-/// @param pLista Puntero a la lista que se va a construir
-/// @param pElemento Puntero al elemento que contiene los datos de los usuarios
-/// @param num_usuario Número de usuarios
-/// @return
-tLista *ConstruirLista(tLista *pLista, tElemento *pElemento, int num_usuario);
-/// @brief Extrae los nombres de la pila que comienzan por una letra y los guarda en una pila auxiliar
-/// @param pPila Puntero a la pila que contiene los nombres
-/// @param Letra Letra por la que se va a filtrar
-/// @param pPila2 Puntero a la pila auxiliar donde se van a guardar los nombres que comienzan por la letra
-/// @param num_usuarios Número de usuarios
-/// @param aux1 Puntero al número de elementos de la pila que no comienzan por la letra
-/// @param aux2 Puntero al número de elementos de la pila que comienzan por la letra
-/// @return
-void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int *aux1, int *aux2);
-/// @brief Extre los nombres de la cola que comienzan por una letra y los guarda en una cola auxiliar
-/// @param pCola1 Puntero a la cola que contiene los nombres
-/// @param Letra Letra por la que se va a filtrar
-/// @param pCola2 Puntero a la cola auxiliar donde se van a guardar los nombres que comienzan por la letra
-/// @param pAux Puntero a la cola auxiliar donde se van a guardar los nombres que no comienzan por la letra
-/// @return
+void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios, int *aux1, int *aux2);
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux);
-
 
 int main(void)
 {
-    // Elemento
-    tElemento *pElemento;
-
     // Pilas
     tPila *pPila1, *pPila2;
     pPila1 = NULL;
     pPila2 = NULL;
-    char Let_pila;
     int tam_aux1, tam_aux2;
-
     // Colas
     tCola Cola1;
     tCola Cola2;
     tCola ColaAux;
-    char Let_cola;
 
     // Listas
-    tLista *pLista;
+    tLista pLista;
 
     // Fichero
     FILE *pf_usuarios;
     int num_usuarios;
-    char Cadena[MAX_CAR * 3 + 2];
 
     // Textos Menus
     char textoMenuPrincipal[] = "\n  Elija que quiere hacer: \n\t 1) Leer fichero.\n\t 2) Construir estructuras.\n\t 3) Extraer nombres pila. \n\t 4) Extraer nombres cola. \n\t 5) Visualizar estructuras \n\t 6) Salir del programa.\n  => ";
     char textoMenuConstruir[] = "\n  Elija que opcion desea realizar: \n\t 1) Construir pilas.\n\t 2) Construir colas.\n\t 3) Construir listas. \n\t 4) Volver atras. \n  => ";
     char textoMenuVisualizar[] = "\n  Elija que opcion desea realizar: \n\t 1) Visualizar pilas.\n\t 2) Visualizar colas.\n\t 3) Visualizar listas. \n\t 4) Volver atras. \n  => ";
+
+    char Cadena[MAX_CAR * 3 + 2];
+    char *cpToken;
+    int FlgSalir;
+    int TipoOperacion;
+    int Num1, Num2, i;
+    int Res, Num;
+    tElemento e;
+    tElemento *pElemento;
+    int LongI, LatI;
+    char Nombre[MAX_CAR];
+    char Apellido[MAX_CAR];
+    char Password[MAX_CAR];
+    int k;
+    int j;
+    int Pos;
+    tElemento Elemento;
+    tPosicion pPos;
+    char name[N];
+    char Let_cola;
+    char Let_pila;
 
     do
     {
@@ -122,20 +96,15 @@ int main(void)
             {
             case OPCION_UNO: // 1) Construir pilas.
                 pPila1 = CrearPila();
-                pPila1 = ConstruirPila(pPila1, pElemento, num_usuarios);
-                printf("  Pila construida correctamente!\n");
+                ConstruirPila(pPila1, pElemento, num_usuarios);
                 break;
             case OPCION_DOS: // 2) Construir colas.
                 Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
                 Cola2 = CrearCola();
                 // Se crea una cola auxiliar
                 ColaAux = CrearCola();
-                printf("  Cola construida correctamente!\n");
                 break;
             case OPCION_TRES: // 3) Construir listas.
-                pLista = CrearLista();
-                pLista = ConstruirLista(pLista, pElemento, num_usuarios);
-                printf("  Lista construida correctamente!\n");
                 break;
             case OPCION_CUATRO: // 4) Volver atras.
                 break;
@@ -148,9 +117,9 @@ int main(void)
             scanf("%c", &Let_pila);
             ExtraerPilaOrden(pPila1, Let_pila, pPila2, num_usuarios, &tam_aux1, &tam_aux2);
             // TEST
-            printf("\n\n  * Pila con nombres que no empiezan por %c;", Let_pila);
+            printf("\n\nPILA CON NOMBRES QUE NO EMPIEZAN POR %c.", Let_pila);
             VisualizarPila(pPila1, tam_aux1);
-            printf("\n\n  * Pila con nombres que empiezan por %c:", Let_pila);
+            printf("\n\nPILA CON NOMBRES QUE EMPIEZAN POR %c.", Let_pila);
             VisualizarPila(pPila2, tam_aux2);
             break;
         case OPCION_CUATRO: // 4) Extraer nombres cola.
@@ -161,10 +130,10 @@ int main(void)
             // ExtraerColaOrden toma la Cola1, que es la que contiene en un principio todos los nombres, y trabajará sobre
             // ella para devolver en Cola2 los nombres con la letra buscada, y en ColaAux la cola sin esos nombres. Le paso por parámetro la letra
             // y el número de usuarios para facilitar la ejecución.
-            Cola1 = ExtraerColaOrden(&Cola1, Let_cola, &Cola2, &ColaAux, num_usuarios);
-            printf("\n\n  * Cola con los nombres: \n");
+            Cola1 = ExtraerColaOrden(&Cola1, Let_cola, &Cola2, &ColaAux);
+            printf("\n\nCola con los nombres: \n");
             VisualizarCola(Cola2);
-            printf("\n\n  * Cola sin esos nombres: \n");
+            printf("\n\nCola sin esos nombres: \n");
             VisualizarCola(Cola1);
             //En el caso de que se vuelva a pedir que extraigamos un nombre de la cola, 
             //debemos antes destruir la Cola2, para inicializarla de nuevo
@@ -173,22 +142,15 @@ int main(void)
         case OPCION_CINCO: // 5) Visualizar estructuras
             switch (Menu(textoMenuVisualizar, 1, 3))
             {
-            case OPCION_UNO: // 1) Visualizar pilas.
-                printf("\nPila:\n");
-                VisualizarPila(pPila1, num_usuarios);
+            case OPCION_UNO: // 1) Construir pilas.
                 break;
-            case OPCION_DOS: // 2) Visualizar colas.
-                printf("\nCola:\n");
-                VisualizarCola(Cola1);
+            case OPCION_DOS: // 2) Construir colas.
                 break;
-            case OPCION_TRES: // 3) Visualizar listas.
-                printf("\nLista:\n");
-                VisualizarLista(pLista);
+            case OPCION_TRES: // 3) Construir listas.
                 break;
             case OPCION_CUATRO: // 4) Volver atras.
                 break;
             }
-            break;
         case OPCION_SEIS: // 6) Salir del programa.
             exit(1);
             break;
@@ -262,18 +224,6 @@ int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lin
     return 0; // Devuelve 0 para indicar éxito
 }
 
-
-tLista *ConstruirLista(tLista *pLista, tElemento *pElemento, int num_usuario)
-{
-    pLista = CrearLista();
-    for (int i = 0; i < num_usuario; i++)
-    {
-        *pLista = Insertar((*pLista), *pElemento, ConseguirPosicionFin(*pLista));
-        pElemento++;
-    }
-
-    return pLista;
-}
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
 {
     tPila *pPilaAux = CrearPila();
@@ -287,7 +237,6 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
         Apilar(pPila1, pPilaAux->cima->Elem);
         Desapilar(pPilaAux);
     }
-    DestruirPila(pPilaAux);
     return pPila1;
 }
 
@@ -312,7 +261,8 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
     tNodo *buscar;
     // Name será usado para poder comparar la letra buscada con la primera letra de cada nombre.
     char nombre[60];
-    while (!EsPilaVacia(pAux1))
+    int j = 0;
+    while (j < num_usuarios)
     {
         // Asigno la cabeza al buscado
         buscar = pPila->cima;
@@ -378,10 +328,7 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
         Apilar(pPila2, pAux2->cima->Elem);
         Desapilar(pAux2);
     }
-    DestruirPila(pAux1);
-    DestruirPila(pAux2);
 }
-
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux)
 {
     // El nodo buscado será repetitivamente igualado a la cabeza de la Cola1, que irá cambiando a medida que se vaya desencolando
