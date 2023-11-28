@@ -20,9 +20,28 @@ namespace Ejercicio2
         }
         static void Main(string[] args)
         {
-            /* A rellenar por el alumno */
+            //Se inicia el menú y se controlan las diversas opciones
+            switch (MenuPrincipal())
+            {
+                case 1: //Leer fichero
+                    break;
+                case 2:
+                    MenuConstruirEstructuras();
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                default:
+                    Console.WriteLine("Internal error (Incorrect option)");
+                    break;
+            }
 
-
+            Console.ReadLine();
         }
 
         public static void ExtraerDatos(string str, out string Nombre, out string Apellido, out string Password)
@@ -103,16 +122,6 @@ namespace Ejercicio2
             /* A rellenar por el alumno */
 
         }
-        /** muestra menu y retorna opción */
-
-
-
-
-        static int menu()
-        {
-            return 0;
-
-        }
 
         static void imprimirPila(Stack pila)
         {
@@ -120,14 +129,48 @@ namespace Ejercicio2
 
         }
 
-
-
-
         static void imprimirCola(Queue cola)
         {
             /* A rellenar por el alumno */
 
         }
+
+        /// @brief Muestra el menú principal
+        /// @returns Opción elegida
+        static int MenuPrincipal()
+        {
+            //Se declara una variable de opción y otra de control
+            int option;
+            bool control = false;
+            //Interfaz gráfica
+            do
+            {
+                Console.WriteLine("1. Leer fichero.\n2. Construir Estructuras.\n3. Extraer nombres pila.\n4. Extraer nombres cola.\n5. Visualizar estructuras.\n6. Salir.\n\n\n=>");
+                if (int.TryParse(Console.ReadLine(), out option))
+                {
+                    control = true;
+                }
+                else
+                {
+                    control = false;
+                    Console.WriteLine("Valor incorrecto. El valor introducido debe ser un número");
+                }
+                if (option < 1 || option > 6)
+                {
+                    control = false;
+                    Console.WriteLine("Introduzca una opción válida");
+                }
+
+            } while (!control);
+
+            return option;
+        }
+
+        static int MenuConstruirEstructuras()
+        {
+            return 0;
+        }
+
     }
 }
 
