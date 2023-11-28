@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 // TADS fuertemente tipados
 // TADS pila, colas, etc.
 using System.Collections;
@@ -7,10 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 
-
-
-
-namespace PRACTICA2_P4_V1
+namespace Ejercicio2
 
 {
 
@@ -32,20 +28,21 @@ namespace PRACTICA2_P4_V1
         public static void ExtraerDatos(string str, out string Nombre, out string Apellido, out string Password)
         {
 
-            /* A rellenar por el alumno */
-
+            Nombre = "s";
+            Apellido= "a";
+            Password= "s";
         }
 
         public static void LeerFichero(string NomFich, out string[] datosusu)
         {
-            /* A rellenar por el alumno */
+            datosusu = new string[NomFich.Length];
 
         }
 
 
         static void leercadena(out string cadena)
         {
-            /* A rellenar por el alumno */
+            cadena= "s";
 
 
         }
@@ -54,8 +51,7 @@ namespace PRACTICA2_P4_V1
 
         static void agregarPila(ref Stack pila, DescripcionUbi valor)
         {
-            /* A rellenar por el alumno */
-
+            
         }
 
         static void ExtraerElemNomP(char Letra, ref Stack pila)
@@ -98,13 +94,13 @@ namespace PRACTICA2_P4_V1
         /** Elimina elemento de la pila */
         static void eliminar(ref Stack pila)
         {
-           /* A rellenar por el alumno */
+            /* A rellenar por el alumno */
 
         }
 
         static void eliminarC(ref Queue cola)
         {
-             /* A rellenar por el alumno */
+            /* A rellenar por el alumno */
 
         }
         /** muestra menu y retorna opción */
@@ -114,7 +110,7 @@ namespace PRACTICA2_P4_V1
 
         static int menu()
         {
-            /* A rellenar por el alumno */
+            return 0;
 
         }
 
@@ -134,11 +130,4 @@ namespace PRACTICA2_P4_V1
         }
     }
 }
-
-
-
-
-
-
-
 

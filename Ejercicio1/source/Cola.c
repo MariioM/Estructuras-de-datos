@@ -10,7 +10,7 @@
 
 tCola CrearCola()
 {
-  //Creamos la cola dinámica
+  // Creamos la cola dinámica
   tCola *cola = (tCola *)malloc(sizeof(tCola));
   cola->pCab = NULL;
   cola->pCol = NULL;
@@ -50,13 +50,13 @@ void Desencolar(tCola *c)
   }
   else
   {
-    //El proceso de desencolar se basa en "eliminar" la cabeza haciendo que ésta apunte al siguiente elemento.
+    // El proceso de desencolar se basa en "eliminar" la cabeza haciendo que ésta apunte al siguiente elemento.
     aux = c->pCab;
-    c->pCab = aux->Sig; 
+    c->pCab = aux->Sig;
 
     if (c->pCab == NULL)
     {
-      //En el caso de que la cabeza sea nula, automáticamente la ultima posición será nula también.
+      // En el caso de que la cabeza sea nula, automáticamente la ultima posición será nula también.
       c->pCol = NULL;
     }
   }
@@ -74,26 +74,27 @@ int EsColaVacia(tCola *c)
    }
 }
 
-void VerCola(tCola c)
+void VisualizarCola(tCola c)
 {
-  //Se treata de un simple bucle que recorre toda la cola y muestra mediante un printf todos los elementos.
-    tNodo *reco = c.pCab;
-    while (reco != NULL)
-    {
-        printf("%s - %s - %s", reco->Elem.Nombre, reco->Elem.Apellido, reco->Elem.Password);
-        reco = reco->Sig;
-    }
-    printf("\n");
+  // Se treata de un simple bucle que recorre toda la cola y muestra mediante un printf todos los elementos.
+  tNodo *reco = c.pCab;
+  while (reco != NULL)
+  {
+    printf("%s - %s - %s", reco->Elem.Nombre, reco->Elem.Apellido, reco->Elem.Password);
+    reco = reco->Sig;
+  }
+  printf("\n");
 }
 
 int CalcularNumElementosC(tCola *c)
 {
-  //Esta función devolverá el número de elementos de la cola que se le pase por parámetro.
+  // Esta función devolverá el número de elementos de la cola que se le pase por parámetro.
   int num_elementos = 0;
-  //Inicializamos el nodo a la cabeza de la cola
+  // Inicializamos el nodo a la cabeza de la cola
   tNodo *nodos = c->pCab;
-  while(nodos != NULL){
-    //Después de incrementar el número, haremos que el puntero nodo apunte al siguiente elemento en la cola.
+  while (nodos != NULL)
+  {
+    // Después de incrementar el número, haremos que el puntero nodo apunte al siguiente elemento en la cola.
     num_elementos++;
     nodos = nodos->Sig;
   }
@@ -110,4 +111,6 @@ tCola DestruirCola(tCola *c){
   }
   return *c;
 }
+
+
 

@@ -13,6 +13,7 @@ typedef struct
 /// @brief Crear una cola vacía.
 /// @return Cola vacía.
 extern tCola CrearCola();
+
 /// @brief Inserta un elemento el final de la cola.
 /// @param c Puntero a la cola
 /// @param E Elemento
@@ -21,6 +22,7 @@ extern void Encolar(tCola *c, tElemento E);
 /// @param c Puntero a la cola
 /// @param E Elemento
 extern void Desencolar(tCola *c);
+
 /// @brief Comprueba si la cola está vacía.
 /// @param c Puntero a la cola
 /// @return NULL si la cola está vacía.
@@ -28,7 +30,7 @@ extern int EsColaVacia(tCola *c);
 /// @brief Imprime los elementos de la cola.
 /// @param c Puntero a la cola
 /// @return
-extern void VerCola(tCola c);
+extern void VisualizarCola(tCola c);
 /// @brief Calcula el número de elementos de la cola.
 /// @param c Puntero a la cola
 /// @return Número de elementos.
