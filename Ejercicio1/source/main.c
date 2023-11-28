@@ -115,8 +115,7 @@ int main(void)
             fflush(stdin);
             printf("Escoja una letra: ");
             scanf("%c", &Let_pila);
-            ExtraerPilaOrden(pPila1, Let_pila, pPila2, num_usuarios, &tam_aux1, &tam_aux2);
-            // TEST
+            ExtraerPilaOrden(pPila1, Let_pila, pPila2, &tam_aux1, &tam_aux2);
             printf("\n\nPILA CON NOMBRES QUE NO EMPIEZAN POR %c.", Let_pila);
             VisualizarPila(pPila1, tam_aux1);
             printf("\n\nPILA CON NOMBRES QUE EMPIEZAN POR %c.", Let_pila);
@@ -237,6 +236,7 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
         Apilar(pPila1, pPilaAux->cima->Elem);
         Desapilar(pPilaAux);
     }
+    DestruirPila(pPilaAux);
     return pPila1;
 }
 
@@ -252,7 +252,7 @@ tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)
     return *pCola1;
 }
 
-void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios, int *aux1, int *aux2)
+void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int *aux1, int *aux2)
 {
     tPila *pAux1, *pAux2;
     pAux1 = CrearPila();
@@ -261,8 +261,7 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
     tNodo *buscar;
     // Name será usado para poder comparar la letra buscada con la primera letra de cada nombre.
     char nombre[60];
-    int j = 0;
-    while (j < num_usuarios)
+    while (!EsPilaVacia(pPila))
     {
         // Asigno la cabeza al buscado
         buscar = pPila->cima;
@@ -309,7 +308,6 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
                 Desapilar(pPila);
             }
         }
-        j++;
     }
 
     // Luego hay que ordenar las pilas, de modo que no se enseñen de forma invertida
@@ -328,6 +326,8 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
         Apilar(pPila2, pAux2->cima->Elem);
         Desapilar(pAux2);
     }
+    DestruirPila(pAux1);
+    DestruirPila(pAux2);
 }
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux)
 {
