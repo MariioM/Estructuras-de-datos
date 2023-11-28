@@ -49,9 +49,10 @@ void VisualizarPila(tPila *pila, int num_usuarios)
    tNodo *nodo = pila->cima;
    while (nodo != NULL)
    {
-      printf("%s - %s - %s\n", nodo->Elem.Nombre, nodo->Elem.Apellido, nodo->Elem.Password);
+      printf("%s - %s - %s", nodo->Elem.Nombre, nodo->Elem.Apellido, nodo->Elem.Password);
       nodo = nodo->Sig;
    }
+   printf("\n");
 }
 
 int CalcularNumElementos(tPila *p)

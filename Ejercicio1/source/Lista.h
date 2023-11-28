@@ -51,8 +51,8 @@ extern tPosicion ConseguirPosicionSiguiente(tPosicion p);
 extern int EsListaVacia(tLista l);
 /// @brief Imprime los elementos de la Lista.
 /// @param l Lista.
-extern void VisualizarLista(tLista p);
+extern void VisualizarLista(tLista *l);
 /// @brief Calcula el número de elementos de la lista.
 /// @param l Lista.
 /// @return Número de elementos.
-extern int CalcularNumeroElementosLista(tLista p);
+extern int CalcularNumeroElementosLista(tLista l);
