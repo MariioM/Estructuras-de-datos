@@ -31,7 +31,7 @@ void Pausar(void);
 void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento);
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios);
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
-void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios, int *aux1, int *aux2);
+void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int *aux1, int *aux2);
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux);
 
 int main(void)
@@ -271,7 +271,7 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int *aux1, int *
             // Si la letra coincide, el proceso será encolar dicho nombre, su apellido y su pass en la Cola2, y posteriormente desencolar la Cola1,
             // Que acabará vacía al final del while
             Apilar(pAux2, buscar->Elem);
-            if (!EsPilaVacia(pPila))
+            if (EsPilaVacia(pPila))
             {
                 printf("ERR_404. La cola está vacía.");
                 break;
@@ -285,7 +285,7 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int *aux1, int *
         {
             // En algunos casos, el fichero ha guardado un "\n" antes del nombre, por lo que tendremos que comprobar también esta premisa
             Apilar(pAux2, buscar->Elem);
-            if (!EsPilaVacia(pPila))
+            if (EsPilaVacia(pPila))
             {
                 printf("ERR_404. La cola está vacía.");
             }
@@ -299,7 +299,7 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int *aux1, int *
             // Si la letra no coincide, simplemente encolamos en la auxiliar, que contendrá la cola sin los nombres buscamos, y desencolamos de cola1, para que la cabeza
             // se mueva a la siguiente posición.
             Apilar(pAux1, buscar->Elem);
-            if (!EsPilaVacia(pPila))
+            if (EsPilaVacia(pPila))
             {
                 printf("ERR_404. La cola está vacía.");
             }
@@ -313,14 +313,13 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int *aux1, int *
     // Luego hay que ordenar las pilas, de modo que no se enseñen de forma invertida
     *aux1 = CalcularNumElementos(pAux1);
     *aux2 = CalcularNumElementos(pAux2);
-
-    for (j = 0; j < *aux1; j++)
+    for (int j = 0; j < *aux1; j++)
     {
 
         Apilar(pPila, pAux1->cima->Elem);
         Desapilar(pAux1);
     }
-    for (j = 0; j < *aux2; j++)
+    for (int j = 0; j < *aux2; j++)
     {
 
         Apilar(pPila2, pAux2->cima->Elem);
