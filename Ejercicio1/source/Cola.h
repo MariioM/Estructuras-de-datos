@@ -35,3 +35,4 @@ extern void VisualizarCola(tCola c);
 /// @param c Puntero a la cola
 /// @return Número de elementos.
 extern int CalcularNumElementosC(tCola *c);
+extern tCola DestruirCola(tCola *c);
