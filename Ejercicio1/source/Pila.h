@@ -36,3 +36,6 @@ extern void EliminarParesPila(tPila **pPila);
 /// @brief Crea pila vacia
 /// @return Pila vacía
 extern tPila *CrearPila();
+/// @brief Libera toda la memoria de una pila
+/// @param pila Pila
+extern void DestruirPila(tPila *pila);

@@ -67,7 +67,11 @@ int EsPilaVacia(tPila *p)
    }
 }
 
-void EliminarParesPila(tPila **pPila)
+void DestruirPila(tPila *pila)
 {
-   /* A rellenar por el alumno */
+   while (pila->cima != NULL)
+   {
+      Desapilar(pila);
+   }
+   free(pila);
 }
