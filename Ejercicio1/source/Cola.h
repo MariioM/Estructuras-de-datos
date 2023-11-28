@@ -30,7 +30,7 @@ extern int EsColaVacia(tCola *c);
 /// @brief Imprime los elementos de la cola.
 /// @param c Puntero a la cola
 /// @return
-extern void VerCola(tCola c);
+extern void VisualizarCola(tCola c);
 /// @brief Calcula el número de elementos de la cola.
 /// @param c Puntero a la cola
 /// @return Número de elementos.

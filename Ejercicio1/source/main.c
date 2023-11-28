@@ -24,17 +24,21 @@
 #define NUM_CHAR_FICH 50
 #define N 50
 
+/* Menus */
 int Menu();
-void MenuConstruir(tPila *pPila1, tPila *pPila2, tCola *Cola1, tCola *Cola2, tLista *pLista, tElemento *pElemento, int num_usuarios);
-void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios);
-int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lineaDatos[]);
-void Pausar(void);
-void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento);
+void MenuConstruir(tPila *pPila1, tCola *Cola1, tLista *pLista, tElemento *pElemento, int num_usuarios);
+void MenuVisualizar(tPila *pPila1, tCola *Cola1, tLista *pLista, int num_usuarios);
+
+/* Construir y extraer estructuras */
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios);
 tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario);
 void ContruirLista(tLista *pLista, tElemento *pElemento, int num_usuario);
 void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios, int *aux1, int *aux2);
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, int num_usuarios);
+
+/* Ficheros */
+void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios);
+int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lineaDatos[]);
 
 int main(void)
 {
@@ -97,7 +101,7 @@ int main(void)
             LeeFichero(pf_usuarios, pElemento, num_usuarios, Cadena);
             break;
         case OPCION_DOS: // 2) Construir estructuras.
-            MenuConstruir(pPila1, pPila2, &Cola1, &Cola2, &pLista, pElemento, num_usuarios);
+            MenuConstruir(pPila1, &Cola1, &pLista, pElemento, num_usuarios);
             break;
         case OPCION_TRES: // 3) Extraer nombres pila.
             pPila2 = CrearPila();
@@ -125,22 +129,13 @@ int main(void)
             // y el número de usuarios para facilitar la ejecución.
             Cola1 = ExtraerColaOrden(&Cola1, Let_cola, &Cola2, &ColaAux, num_usuarios);
             printf("\n\nCola con los nombres: \n");
-            VerCola(Cola2);
+            VisualizarCola(Cola2);
             printf("\n\nCola sin esos nombres: \n");
-            VerCola(ColaAux);
+            VisualizarCola(ColaAux);
             break;
         case OPCION_CINCO: // 5) Visualizar estructuras
-            switch (Menu(textoMenuVisualizar, 1, 3))
-            {
-            case OPCION_UNO: // 1) Visualizar pilas.
-                break;
-            case OPCION_DOS: // 2) Visualizar colas.
-                break;
-            case OPCION_TRES: // 3) Visualizar listas.
-                break;
-            case OPCION_CUATRO: // 4) Volver atras.
-                break;
-            }
+            MenuVisualizar(pPila1, &Cola1, &pLista, num_usuarios);
+            break;
         case OPCION_SEIS: // 6) Salir del programa.
             exit(1);
             break;
@@ -150,7 +145,23 @@ int main(void)
     return 0;
 }
 
-void MenuConstruir(tPila *pPila1, tPila *pPila2, tCola *Cola1, tCola *Cola2, tLista *pLista, tElemento *pElemento, int num_usuarios)
+int Menu(char texto[], int limite_inferior, int limite_superior)
+{
+    int opcion;
+    do
+    {
+        printf("%s", texto);
+        scanf("%d", &opcion);
+
+        if (opcion < limite_inferior || opcion > limite_superior)
+        {
+            printf("\n  Opcion incorrecta. Por favor, introduzca una opcion valida.\n");
+        }
+
+    } while (opcion < limite_inferior || opcion > limite_superior);
+}
+
+void MenuConstruir(tPila *pPila1, tCola *Cola1, tLista *pLista, tElemento *pElemento, int num_usuarios)
 {
     char textoMenuConstruir[] = "\n  Elija que opcion desea realizar: \n\t 1) Construir pilas.\n\t 2) Construir colas.\n\t 3) Construir listas. \n\t 4) Volver atras. \n  => ";
 
@@ -158,7 +169,7 @@ void MenuConstruir(tPila *pPila1, tPila *pPila2, tCola *Cola1, tCola *Cola2, tLi
     {
     case OPCION_UNO: // 1) Construir pilas.
         pPila1 = CrearPila();
-        ConstruirPila(pPila1, pElemento, num_usuarios);
+        pPila1 = ConstruirPila(pPila1, pElemento, num_usuarios);
         break;
     case OPCION_DOS: // 2) Construir colas.
         (*Cola1) = ConstruirCola(&(*Cola1), pElemento, num_usuarios);
@@ -171,14 +182,24 @@ void MenuConstruir(tPila *pPila1, tPila *pPila2, tCola *Cola1, tCola *Cola2, tLi
     }
 }
 
-int Menu(char texto[], int limite_inferior, int limite_superior)
+void MenuVisualizar(tPila *pPila1, tCola *Cola1, tLista *pLista, int num_usuarios)
 {
-    int opcion;
-    do
+    char textoMenuVisualizar[] = "\n  Elija que opcion desea realizar: \n\t 1) Visualizar pila.\n\t 2) Visualiza colas.\n\t 3) Visualizar listas. \n\t 4) Volver atras. \n  => ";
+
+    switch (Menu(textoMenuVisualizar, 1, 4))
     {
-        printf("%s", texto);
-        scanf("%d", &opcion);
-    } while (opcion < limite_inferior || opcion > limite_superior);
+    case OPCION_UNO: // 1) Visualizar pila.
+        VisualizarPila(pPila1, num_usuarios);
+        break;
+    case OPCION_DOS: // 2) Visualizar cola.
+        VisualizarCola(*Cola1);
+        break;
+    case OPCION_TRES: // 3) Visualizar lista.
+
+        break;
+    case OPCION_CUATRO: // 4) Volver atras.
+        break;
+    }
 }
 
 void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios)
@@ -235,15 +256,6 @@ int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lin
     return 0; // Devuelve 0 para indicar éxito
 }
 
-void Pausar(void)
-{
-    /* A rellenar por el alumno*/
-}
-
-void ConstruirPilas(tPila *pPila1, tPila *pPila2, tElemento *pElemento)
-{
-}
-
 tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
 {
     tPila *pPilaAux = CrearPila();
@@ -257,6 +269,9 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
         Apilar(pPila1, pPilaAux->cima->Elem);
         Desapilar(pPilaAux);
     }
+
+    printf("\n  Pila construida correctamente!\n");
+
     return pPila1;
 }
 
@@ -269,6 +284,8 @@ tCola ConstruirCola(tCola *pCola1, tElemento *pElemento, int num_usuario)
         pElemento++;
     }
 
+    printf("\n  Cola construida correctamente!\n");
+
     return *pCola1;
 }
 
@@ -280,10 +297,11 @@ void ContruirLista(tLista *pLista, tElemento *pElemento, int num_usuario)
         *pLista = Insertar((*pLista), *pElemento, ConseguirPosicionFin(*pLista));
         pElemento++;
     }
+
+    printf("\n  Lista construida correctamente!\n");
 }
 
 void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios, int *aux1, int *aux2)
-
 {
     tPila *pAux1, *pAux2;
     pAux1 = CrearPila();
