@@ -8,7 +8,7 @@
 #include "Pila.h"
 #include "Err.h"
 
-tPila *Apilar(tPila *p, tElemento Ele)
+void *Apilar(tPila *p, tElemento Ele)
 {
    tNodo *nodo = CrearNodo(Ele);
    nodo->Sig = p->cima;
@@ -27,7 +27,7 @@ void VisualizarPila(tPila *pila, int num_usuarios)
    tNodo *nodo = pila->cima;
    while (nodo != NULL)
    {
-      printf("Pila Nombre: %s Pila Apellido: %sPila Password: %s\n", nodo->Elem.Nombre, nodo->Elem.Apellido, nodo->Elem.Password);
+      printf("%s - %s - %s\n", nodo->Elem.Nombre, nodo->Elem.Apellido, nodo->Elem.Password);
       nodo = nodo->Sig;
    }
 }
@@ -45,7 +45,7 @@ int CalcularNumElementos(tPila *p)
    return longitud;
 }
 
-tPila *Desapilar(tPila *p)
+void *Desapilar(tPila *p)
 {
    if (p != NULL)
    {
