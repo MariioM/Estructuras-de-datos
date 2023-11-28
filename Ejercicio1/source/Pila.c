@@ -34,14 +34,7 @@ void *Desapilar(tPila *p)
 
 int EsPilaVacia(tPila *p)
 {
-   if (p->cima == NULL)
-   {
-      return 0;
-   }
-   else
-   {
-      return 1;
-   }
+   return p->cima == NULL;
 }
 
 void VisualizarPila(tPila *pila, int num_usuarios)

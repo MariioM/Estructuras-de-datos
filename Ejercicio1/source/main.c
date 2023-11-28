@@ -285,6 +285,7 @@ tPila *ConstruirPila(tPila *pPila1, tElemento *pElemento, int num_usuarios)
         Apilar(pPila1, pPilaAux->cima->Elem);
         Desapilar(pPilaAux);
     }
+    DestruirPila(pPilaAux);
     return pPila1;
 }
 
@@ -309,8 +310,7 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
     tNodo *buscar;
     // Name será usado para poder comparar la letra buscada con la primera letra de cada nombre.
     char nombre[60];
-    int j = 0;
-    while (j < num_usuarios)
+    while (!EsPilaVacia(pAux1))
     {
         // Asigno la cabeza al buscado
         buscar = pPila->cima;
@@ -376,6 +376,8 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
         Apilar(pPila2, pAux2->cima->Elem);
         Desapilar(pAux2);
     }
+    DestruirPila(pAux1);
+    DestruirPila(pAux2);
 }
 
 tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, int num_usuarios)
