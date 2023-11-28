@@ -108,11 +108,6 @@ tElemento Recuperar(tPosicion p)
     /* A rellenar por el alumno */
 }
 
-int EsListaVacia(tLista l)
-{
-    return (l.Primero == NULL);
-}
-
 tPosicion ConseguirPosicionFin(tLista l)
 {
     return l.Ultimo;
@@ -125,7 +120,12 @@ tPosicion ConseguirPosicionPrincipio(tLista l)
 
 tPosicion ConseguirPosicionSiguiente(tPosicion p)
 {
-    /* A rellenar por el alumno */
+    return p->Sig;
+}
+
+int EsListaVacia(tLista l)
+{
+    return (l.Primero == NULL);
 }
 
 void VisualizarLista(tLista l)
