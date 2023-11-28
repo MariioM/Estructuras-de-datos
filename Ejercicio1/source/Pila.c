@@ -44,15 +44,6 @@ int EsPilaVacia(tPila *p)
    }
 }
 
-void DestruirPila(tPila *pila)
-{
-   while (pila->cima != NULL)
-   {
-      Desapilar(pila);
-   }
-}
-
-free(pila);
 void VisualizarPila(tPila *pila, int num_usuarios)
 {
    tNodo *nodo = pila->cima;
@@ -75,4 +66,13 @@ int CalcularNumElementos(tPila *p)
       actual = actual->Sig;
    }
    return longitud;
+}
+
+void DestruirPila(tPila *pila)
+{
+   while (pila->cima != NULL)
+   {
+      Desapilar(pila);
+   }
+   free(pila);
 }
