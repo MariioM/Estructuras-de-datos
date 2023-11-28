@@ -135,8 +135,8 @@ int main(void)
             VisualizarCola(Cola2);
             printf("\n\nCola sin esos nombres: \n");
             VisualizarCola(Cola1);
-            //En el caso de que se vuelva a pedir que extraigamos un nombre de la cola, 
-            //debemos antes destruir la Cola2, para inicializarla de nuevo
+            // En el caso de que se vuelva a pedir que extraigamos un nombre de la cola,
+            // debemos antes destruir la Cola2, para inicializarla de nuevo
             Cola2 = DestruirCola(&Cola2);
             break;
         case OPCION_CINCO: // 5) Visualizar estructuras
@@ -366,7 +366,7 @@ tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux)
     }
     int j = 0;
     int tam_aux = CalcularNumElementosC(pAux);
-    //Como me interesa devolver los elementos que no coinciden con la letra de la auxiliar a la cola1, ejecuto el siguiente bucle.
+    // Como me interesa devolver los elementos que no coinciden con la letra de la auxiliar a la cola1, ejecuto el siguiente bucle.
     while (j < tam_aux)
     {
         Encolar(pCola1, pAux->pCab->Elem);
