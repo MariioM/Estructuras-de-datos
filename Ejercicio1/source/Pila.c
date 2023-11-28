@@ -66,8 +66,3 @@ int EsPilaVacia(tPila *p)
       return 1;
    }
 }
-
-void EliminarParesPila(tPila **pPila)
-{
-   /* A rellenar por el alumno */
-}

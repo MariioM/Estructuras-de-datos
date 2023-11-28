@@ -28,7 +28,7 @@ void Encolar(tCola *c, tElemento E)
   nuevo->Sig = NULL;
 
   // recolocar punteros
-  if (EsColaVacia(c))
+  if (EsColaVacia(c) == 0)
   { // Si está vacía, es apuntar con primero y último a ese nuevo nodo
     c->pCab = nuevo;
     c->pCol = nuevo;
@@ -44,7 +44,7 @@ void Desencolar(tCola *c)
 {
   tNodo *aux;
 
-  if (EsColaVacia(c))
+  if (EsColaVacia(c) == 0)
   {
     printf("ERROR al desencolar. La cola est� vac�a. \n");
   }
@@ -64,7 +64,14 @@ void Desencolar(tCola *c)
 
 int EsColaVacia(tCola *c)
 {
-  return (c->pCab == NULL);
+   if (c->pCab == NULL)
+   {
+      return 0;
+   }
+   else
+   {
+      return 1;
+   }
 }
 
 void VerCola(tCola c)
@@ -91,5 +98,16 @@ int CalcularNumElementosC(tCola *c)
     nodos = nodos->Sig;
   }
   return num_elementos;
+}
+
+tCola DestruirCola(tCola *c){
+  //Inicializamos el nodo a la cabeza de la cola
+  tNodo *nodo = c->pCab;
+  while(nodo != NULL){
+    //Después de incrementar el número, haremos que el puntero nodo apunte al siguiente elemento en la cola.
+    Desencolar(c);
+    nodo = c->pCab;
+  }
+  return *c;
 }
 
