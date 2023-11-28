@@ -50,27 +50,29 @@ void DestruirPila(tPila *pila)
    {
       Desapilar(pila);
    }
-   free(pila);
-   void VisualizarPila(tPila * pila, int num_usuarios)
-   {
-      tNodo *nodo = pila->cima;
-      while (nodo != NULL)
-      {
-         printf("%s - %s - %s", nodo->Elem.Nombre, nodo->Elem.Apellido, nodo->Elem.Password);
-         nodo = nodo->Sig;
-      }
-      printf("\n");
-   }
+}
 
-   int CalcularNumElementos(tPila * p)
+free(pila);
+void VisualizarPila(tPila *pila, int num_usuarios)
+{
+   tNodo *nodo = pila->cima;
+   while (nodo != NULL)
    {
-      int longitud = 0;
-      tNodo *actual = p->cima;
-
-      while (actual != NULL)
-      {
-         longitud++;
-         actual = actual->Sig;
-      }
-      return longitud;
+      printf("%s - %s - %s", nodo->Elem.Nombre, nodo->Elem.Apellido, nodo->Elem.Password);
+      nodo = nodo->Sig;
    }
+   printf("\n");
+}
+
+int CalcularNumElementos(tPila *p)
+{
+   int longitud = 0;
+   tNodo *actual = p->cima;
+
+   while (actual != NULL)
+   {
+      longitud++;
+      actual = actual->Sig;
+   }
+   return longitud;
+}
