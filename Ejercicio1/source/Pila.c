@@ -8,13 +8,6 @@
 #include "Pila.h"
 #include "Err.h"
 
-void *Apilar(tPila *p, tElemento Ele)
-{
-   tNodo *nodo = CrearNodo(Ele);
-   nodo->Sig = p->cima;
-   p->cima = nodo;
-}
-
 tPila *CrearPila()
 {
    tPila *pila = (tPila *)malloc(sizeof(tPila));
@@ -22,27 +15,11 @@ tPila *CrearPila()
    return pila;
 }
 
-void VisualizarPila(tPila *pila, int num_usuarios)
+void *Apilar(tPila *p, tElemento Ele)
 {
-   tNodo *nodo = pila->cima;
-   while (nodo != NULL)
-   {
-      printf("%s - %s - %s\n", nodo->Elem.Nombre, nodo->Elem.Apellido, nodo->Elem.Password);
-      nodo = nodo->Sig;
-   }
-}
-
-int CalcularNumElementos(tPila *p)
-{
-   int longitud = 0;
-   tNodo *actual = p->cima;
-
-   while (actual != NULL)
-   {
-      longitud++;
-      actual = actual->Sig;
-   }
-   return longitud;
+   tNodo *nodo = CrearNodo(Ele);
+   nodo->Sig = p->cima;
+   p->cima = nodo;
 }
 
 void *Desapilar(tPila *p)
@@ -74,4 +51,26 @@ void DestruirPila(tPila *pila)
       Desapilar(pila);
    }
    free(pila);
-}
+   void VisualizarPila(tPila * pila, int num_usuarios)
+   {
+      tNodo *nodo = pila->cima;
+      while (nodo != NULL)
+      {
+         printf("%s - %s - %s", nodo->Elem.Nombre, nodo->Elem.Apellido, nodo->Elem.Password);
+         nodo = nodo->Sig;
+      }
+      printf("\n");
+   }
+
+   int CalcularNumElementos(tPila * p)
+   {
+      int longitud = 0;
+      tNodo *actual = p->cima;
+
+      while (actual != NULL)
+      {
+         longitud++;
+         actual = actual->Sig;
+      }
+      return longitud;
+   }
