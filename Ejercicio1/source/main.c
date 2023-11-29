@@ -36,11 +36,15 @@ tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux);
 
 int main(void)
 {
+    // Elementos
+    tElemento *pElemento;
+
     // Pilas
     tPila *pPila1, *pPila2;
     pPila1 = NULL;
     pPila2 = NULL;
     int tam_aux1, tam_aux2;
+
     // Colas
     tCola Cola1;
     tCola Cola2;
@@ -59,18 +63,9 @@ int main(void)
     char textoMenuVisualizar[] = "\n  Elija que opcion desea realizar: \n\t 1) Visualizar pilas.\n\t 2) Visualizar colas.\n\t 3) Visualizar listas. \n\t 4) Volver atras. \n  => ";
 
     char Cadena[MAX_CAR * 3 + 2];
-    char *cpToken;
-    int FlgSalir;
-    int TipoOperacion;
-    int Num1, Num2, i;
-    int Res, Num;
-    tElemento e;
-    tElemento *pElemento;
-    int LongI, LatI;
     char Nombre[MAX_CAR];
     char Apellido[MAX_CAR];
     char Password[MAX_CAR];
-    int k;
     int j;
     int Pos;
     tElemento Elemento;
