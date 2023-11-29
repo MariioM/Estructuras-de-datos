@@ -43,6 +43,7 @@ namespace Ejecicio_2
                         switch (MenuConstruirEstructuras())
                         {
                             case 1: //Construir pila
+
                                 //Se instancian dos pilas, una auxiliar y la principal
                                 Stack pilaAux = new Stack();
                                 Stack pila = new Stack();
@@ -64,6 +65,14 @@ namespace Ejecicio_2
                                 }
                                 break;
                             case 2: //Construir colas
+
+                                //Se instancia la cola
+                                Queue cola = new Queue();
+                                //Se insertan todos los elementos en la cola
+                                for(int i = 0; i < datosUsuario.Length; i++)
+                                {
+                                    AgregarCola(ref cola, datosUsuario[i]);
+                                }
                                 break;
                             default:
                                 throw new Exception("Internal Error (Build option doesn´t exist)");
@@ -139,7 +148,11 @@ namespace Ejecicio_2
             cadena = null;
         }
 
-        /** añade un nuevo elemento a la pila */
+        /// <summary>
+        /// Agrega un elemento a una pila
+        /// </summary>
+        /// <param name="pila">Pila</param>
+        /// <param name="valor">Elemento</param>
 
         static void AgregarPila(ref Stack pila, DescripcionUbi valor)
         {
@@ -152,12 +165,15 @@ namespace Ejecicio_2
 
         }
 
-        /** muestra menu y retorna opción */
+        /// <summary>
+        /// Agrega un elemento a una cola
+        /// </summary>
+        /// <param name="Cola">Cola</param>
+        /// <param name="valor">Elemento</param>
 
-        static void agregarCola(ref Queue Cola, DescripcionUbi valor)
+        static void AgregarCola(ref Queue Cola, DescripcionUbi valor)
         {
-            /* A rellenar por el alumno */
-
+            Cola.Enqueue(valor);
         }
 
 

@@ -13,3 +13,11 @@ C:\Users\Mario\Documents\Trabajos Uni\2\EDA\Practica2\Ejercicio 2\Ejercicio 2\ob
 C:\Users\Mario\Documents\Trabajos Uni\2\EDA\Practica2\Ejercicio 2\Ejercicio 2\obj\Debug\Ejercicio 2.csproj.CoreCompileInputs.cache
 C:\Users\Mario\Documents\Trabajos Uni\2\EDA\Practica2\Ejercicio 2\Ejercicio 2\obj\Debug\Ejercicio 2.exe
 C:\Users\Mario\Documents\Trabajos Uni\2\EDA\Practica2\Ejercicio 2\Ejercicio 2\obj\Debug\Ejercicio 2.pdb
+C:\Users\PC GAMING\Documents\Trabajos Uni\2º\EDA\Practica2\Ejercicio 2\Ejercicio 2\bin\Debug\Ejercicio 2.exe.config
+C:\Users\PC GAMING\Documents\Trabajos Uni\2º\EDA\Practica2\Ejercicio 2\Ejercicio 2\bin\Debug\Ejercicio 2.exe
+C:\Users\PC GAMING\Documents\Trabajos Uni\2º\EDA\Practica2\Ejercicio 2\Ejercicio 2\bin\Debug\Ejercicio 2.pdb
+C:\Users\PC GAMING\Documents\Trabajos Uni\2º\EDA\Practica2\Ejercicio 2\Ejercicio 2\obj\Debug\Ejercicio 2.csproj.AssemblyReference.cache
+C:\Users\PC GAMING\Documents\Trabajos Uni\2º\EDA\Practica2\Ejercicio 2\Ejercicio 2\obj\Debug\Ejercicio 2.csproj.SuggestedBindingRedirects.cache
+C:\Users\PC GAMING\Documents\Trabajos Uni\2º\EDA\Practica2\Ejercicio 2\Ejercicio 2\obj\Debug\Ejercicio 2.csproj.CoreCompileInputs.cache
+C:\Users\PC GAMING\Documents\Trabajos Uni\2º\EDA\Practica2\Ejercicio 2\Ejercicio 2\obj\Debug\Ejercicio 2.exe
+C:\Users\PC GAMING\Documents\Trabajos Uni\2º\EDA\Practica2\Ejercicio 2\Ejercicio 2\obj\Debug\Ejercicio 2.pdb
