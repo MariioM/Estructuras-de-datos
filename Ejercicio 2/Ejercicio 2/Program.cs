@@ -2,6 +2,7 @@
 // TADS fuertemente tipados
 // TADS pila, colas, etc.
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,10 @@ namespace Ejecicio_2
 
         static void Main(string[] args)
         {
+            //Se instancia una pila y una cola
+            Stack<DescripcionUbi> pila = new Stack<DescripcionUbi>();
+            Queue<DescripcionUbi> cola = new Queue<DescripcionUbi>();
+            //Se declara una variable de control del programa y el array de los datos
             bool program = true;
             DescripcionUbi[] datosUsuario =  new DescripcionUbi[50];
             do
@@ -36,17 +41,18 @@ namespace Ejecicio_2
                 switch (MenuPrincipal())
                 {
                     case 1: // Leer fichero
+                        Console.Clear();
                         LeerFichero(fichero, out datosUsuario);
                         break;
                     case 2: // Construir Estructuras
+                        Console.Clear();
                         //Se muestra el menú de construir estructuras
                         switch (MenuConstruirEstructuras())
                         {
                             case 1: //Construir pila
-
-                                //Se instancian dos pilas, una auxiliar y la principal
-                                Stack pilaAux = new Stack();
-                                Stack pila = new Stack();
+                                Console.Clear();
+                                //Se instancian una pila auxiliar
+                                Stack<DescripcionUbi> pilaAux = new Stack<DescripcionUbi>();
                                 //Array auxiliar para ordenar elementos
                                 DescripcionUbi[] listaAuxiliar = new DescripcionUbi[50];
                                 //Se insertan los elementos de forma inversa
@@ -65,11 +71,9 @@ namespace Ejecicio_2
                                 }
                                 break;
                             case 2: //Construir colas
-
-                                //Se instancia la cola
-                                Queue cola = new Queue();
+                                Console.Clear();
                                 //Se insertan todos los elementos en la cola
-                                for(int i = 0; i < datosUsuario.Length; i++)
+                                for (int i = 0; i < datosUsuario.Length; i++)
                                 {
                                     AgregarCola(ref cola, datosUsuario[i]);
                                 }
@@ -79,6 +83,31 @@ namespace Ejecicio_2
                         }
                         break;
                     case 3: // Extraer nombres pilas
+                        Console.Clear();
+                        //Se declara una variable de control y otra que guarde el número de nombres eliminados
+                        bool control = true;
+                        int deletedNames;
+                        //Se pide al usuario que indique la letra
+                        char letra;
+                        do { 
+                            Console.Write("Indique la letra inicial de los nombres a extraer => ");
+                            if(char.TryParse(Console.ReadLine(), out letra))
+                            {
+                                deletedNames = ExtraerElemNomP(letra, ref pila);
+                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine("Se han eliminado " + deletedNames + " nombres.");
+                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine("Pulse cualquier tecla para continuar...");
+                                Console.ReadKey();
+                                Console.Clear();
+                                control = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("El valor introducido debe ser un único carácter"); 
+                                control= false;
+                            }
+                        }while( !control );
                         break;
                     case 4: // Extraer nombres cola
                         break;
@@ -154,15 +183,52 @@ namespace Ejecicio_2
         /// <param name="pila">Pila</param>
         /// <param name="valor">Elemento</param>
 
-        static void AgregarPila(ref Stack pila, DescripcionUbi valor)
+        static void AgregarPila(ref Stack<DescripcionUbi> pila, DescripcionUbi valor)
         {
             pila.Push(valor);
         }
 
-        static void ExtraerElemNomP(char Letra, ref Stack pila)
+        /// <summary>
+        /// Extrae todos los nombres que empiezan por una letra determinada
+        /// </summary>
+        /// <param name="Letra">Letra indicada</param>
+        /// <param name="pila">Pila</param>
+        static int ExtraerElemNomP(char Letra, ref Stack<DescripcionUbi> pila)
         {
-            /* A rellenar por el alumno */
-
+            //Se pasa la letra a mayúsculas para evitar fallos
+            string letraIgnoreMayus = Letra.ToString().ToUpper();
+            //Se instancia una pila auxiliar
+            Stack<DescripcionUbi> pilaAux = new Stack<DescripcionUbi>();
+            //Se declara una variable que guarde el Top Of Stack
+            DescripcionUbi TOS = new DescripcionUbi();
+            //Variables que comprueben el tamaño de la pila y de la pila auxiliar
+            int auxStackInitialSize;
+            int stackInitialSize = pila.Count;
+            //Se declara una variable que guarde el número de nombres eliminados
+            int deletedNames = 0;
+            //Bucle para comprobar los nombres
+            for (int i = 0; i < stackInitialSize; i++)
+            {
+                //Se guarda la cima
+                TOS = pila.Peek();
+                if (TOS.Nombre[0].ToString() != letraIgnoreMayus) //Se comprueba si el nombre empieza por la letra indicada
+                {
+                    //Si no lo hace, se guarda en la pila auxiliar
+                    AgregarPila(ref pilaAux, pila.Pop());
+                }
+                else //Si empieza por la letra, se elimina
+                {
+                    pila.Pop();
+                    deletedNames++;
+                }
+            }
+            auxStackInitialSize = pilaAux.Count;
+            //Se devuelven los elementos a la pila original
+            for (int i = 0; i < auxStackInitialSize; i++)
+            {
+                AgregarPila(ref pila, pilaAux.Pop());
+            }
+            return deletedNames;
         }
 
         /// <summary>
@@ -171,7 +237,7 @@ namespace Ejecicio_2
         /// <param name="Cola">Cola</param>
         /// <param name="valor">Elemento</param>
 
-        static void AgregarCola(ref Queue Cola, DescripcionUbi valor)
+        static void AgregarCola(ref Queue<DescripcionUbi> Cola, DescripcionUbi valor)
         {
             Cola.Enqueue(valor);
         }
