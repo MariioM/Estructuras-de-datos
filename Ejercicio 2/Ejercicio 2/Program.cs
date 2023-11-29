@@ -28,28 +28,60 @@ namespace Ejecicio_2
 
         static void Main(string[] args)
         {
-            DescripcionUbi[] datosUsuario; 
-
-            // Se imprime el menú y se diferencian entre las diferentes opciones
-            switch(MenuPrincipal())
+            bool program = true;
+            DescripcionUbi[] datosUsuario =  new DescripcionUbi[50];
+            do
             {
-                case 1: // Leer fichero
-                    LeerFichero(fichero, out datosUsuario);
-                    break;
-                case 2: // Construir Estructuras
-                    break;
-                case 3: // Extraer nombres pilas
-                    break;
-                case 4: // Extraer nombres cola
-                    break;
-                case 5: // Visualizar estructuras
-                    break;
-                case 6: // Salir
-                    break;
-                default:
-                    Console.WriteLine("Internal error (wrong option input)");
-                    break;
-            }
+                // Se imprime el menú y se diferencian entre las diferentes opciones
+                switch (MenuPrincipal())
+                {
+                    case 1: // Leer fichero
+                        LeerFichero(fichero, out datosUsuario);
+                        break;
+                    case 2: // Construir Estructuras
+                        //Se muestra el menú de construir estructuras
+                        switch (MenuConstruirEstructuras())
+                        {
+                            case 1: //Construir pila
+                                //Se instancian dos pilas, una auxiliar y la principal
+                                Stack pilaAux = new Stack();
+                                Stack pila = new Stack();
+                                //Array auxiliar para ordenar elementos
+                                DescripcionUbi[] listaAuxiliar = new DescripcionUbi[50];
+                                //Se insertan los elementos de forma inversa
+                                for (int i = 0; i < datosUsuario.Length; i++)
+                                {
+                                    AgregarPila(ref pilaAux, datosUsuario[i]);
+                                }
+                                //Se colocan los elementos ya ordenados en un array auxiliar
+                                for(int i = 0; i < datosUsuario.Length; i++)
+                                {
+                                    pilaAux.CopyTo(listaAuxiliar, 0);
+                                }
+                                for(int i = 0; i < datosUsuario.Length; i++) 
+                                {
+                                    AgregarPila(ref pila, listaAuxiliar[i]);
+                                }
+                                break;
+                            case 2: //Construir colas
+                                break;
+                            default:
+                                throw new Exception("Internal Error (Build option doesn´t exist)");
+                        }
+                        break;
+                    case 3: // Extraer nombres pilas
+                        break;
+                    case 4: // Extraer nombres cola
+                        break;
+                    case 5: // Visualizar estructuras
+                        break;
+                    case 6: // Salir
+                        program = false;
+                        break;
+                    default:
+                        throw new Exception("Internal error (wrong option input)");
+                }
+            } while (program);
 
         }
 
@@ -100,9 +132,6 @@ namespace Ejecicio_2
             Console.WriteLine("\nArchivo leido correctamente!");
 
             archivo.Close();
-
-            Console.ReadKey();
-
         }
 
         static void leercadena(out string cadena)
@@ -112,10 +141,9 @@ namespace Ejecicio_2
 
         /** añade un nuevo elemento a la pila */
 
-        static void agregarPila(ref Stack pila, DescripcionUbi valor)
+        static void AgregarPila(ref Stack pila, DescripcionUbi valor)
         {
-            /* A rellenar por el alumno */
-
+            pila.Push(valor);
         }
 
         static void ExtraerElemNomP(char Letra, ref Stack pila)
@@ -211,6 +239,35 @@ namespace Ejecicio_2
             }
 
             if (opcion < 1 || opcion > 6)
+            {
+                control = false;
+                Console.WriteLine("Opción Incorrecta. Elija una opción válida");
+            }
+
+            return opcion;
+        }
+
+        static int MenuConstruirEstructuras()
+        {
+            // Se declara una variable de opción y otra de control
+            int opcion;
+            bool control = true;
+
+            // Interfaz menú
+            Console.Write("1) Construir Pila\n2) Construir Cola\n\n\n=> ");
+
+            // Se pide al usuario la opción deseada
+            if (int.TryParse(Console.ReadLine(), out opcion))
+            {
+                control = true;
+            }
+            else
+            {
+                control = false;
+                Console.WriteLine("Valor introducido incorrecto. El valor debe ser un número entero");
+            }
+
+            if (opcion < 1 || opcion > 2)
             {
                 control = false;
                 Console.WriteLine("Opción Incorrecta. Elija una opción válida");
