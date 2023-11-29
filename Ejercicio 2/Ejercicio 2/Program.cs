@@ -110,8 +110,57 @@ namespace Ejecicio_2
                         }while( !control );
                         break;
                     case 4: // Extraer nombres cola
+                        Console.Clear();
+                        //Se declara una variable de control y otra que guarde el número de nombres eliminados
+                        control = true;
+                        //Se pide al usuario que indique la letra
+                        do
+                        {
+                            Console.Write("Indique la letra inicial de los nombres a extraer => ");
+                            if (char.TryParse(Console.ReadLine(), out letra))
+                            {
+                                deletedNames = ExtraerElemNomC(letra, ref cola);
+                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine("Se han eliminado " + deletedNames + " nombres.");
+                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine("Pulse cualquier tecla para continuar...");
+                                Console.ReadKey();
+                                Console.Clear();
+                                control = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("El valor introducido debe ser un único carácter");
+                                control = false;
+                            }
+                        } while (!control);
                         break;
                     case 5: // Visualizar estructuras
+                        Console.Clear();
+                        //Se muestra el menú de propio
+                        switch (MenuVisualizarEstructuras())
+                        {
+                            case 1: //Visualizar Pila
+                                Console.Clear();
+                                Console.WriteLine("\n\n\nVISUALIZAR ELEMENTOS PILAS");
+                                Console.WriteLine("-----------------------------------");
+                                ImprimirPila(pila);
+                                Console.WriteLine("Pulse cualquier tecla para continuar...");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            case 2: //Visualizar cola
+                                Console.Clear();
+                                Console.WriteLine("\n\n\nVISUALIZAR ELEMENTOS COLAS");
+                                Console.WriteLine("-----------------------------------");
+                                ImprimirCola(cola);
+                                Console.WriteLine("Pulse cualquier tecla para continuar...");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            default:
+                                throw new Exception("Internal Error (Build option doesn´t exist)");
+                        }
                         break;
                     case 6: // Salir
                         program = false;
@@ -123,7 +172,13 @@ namespace Ejecicio_2
 
         }
 
-
+        /// <summary>
+        /// Da formato al texto extraido del fichero
+        /// </summary>
+        /// <param name="str">Cadena de texto</param>
+        /// <param name="Nombre">Apartado Nombre Fichero</param>
+        /// <param name="Apellido">Apartado Apellido Fichero</param>
+        /// <param name="Password">Apartado Password Fichero</param>
         public static void ExtraerDatos(string str, out string Nombre, out string Apellido, out string Password)
         {
             string[] array = str.Split(';');
@@ -135,11 +190,13 @@ namespace Ejecicio_2
         }
 
         /// <summary>
-        /// 
+        /// Lee el fichero con los datos
         /// </summary>
         /// <param name="NomFich">
+        /// Nombre del Fichero
         /// </param>
-        /// <param name="NomFich">
+        /// <param name="datosusu">
+        /// Array que guarda los datos formateados del fichero
         /// </param>
         public static void LeerFichero(string NomFich, out DescripcionUbi[] datosusu)
         {
@@ -189,7 +246,7 @@ namespace Ejecicio_2
         }
 
         /// <summary>
-        /// Extrae todos los nombres que empiezan por una letra determinada
+        /// Extrae todos los nombres de la pila que empiezan por una letra determinada
         /// </summary>
         /// <param name="Letra">Letra indicada</param>
         /// <param name="pila">Pila</param>
@@ -228,6 +285,7 @@ namespace Ejecicio_2
             {
                 AgregarPila(ref pila, pilaAux.Pop());
             }
+            Limpiar(ref pilaAux);
             return deletedNames;
         }
 
@@ -242,25 +300,49 @@ namespace Ejecicio_2
             Cola.Enqueue(valor);
         }
 
-
-        static void ExtraerElemNomC(char Letra, ref Queue cola)
+        /// <summary>
+        /// Extrae todos los nombres de la cola que empiezan por la letra indicada
+        /// </summary>
+        /// <param name="Letra">Letra indicada</param>
+        /// <param name="cola">Cola</param>
+        /// <returns></returns>
+        static int ExtraerElemNomC(char Letra, ref Queue<DescripcionUbi> cola)
         {
+            //Se pasa la letra a mayúsculas para evitar fallos
+            string letraIgnoreMayus = Letra.ToString().ToUpper();
+            //Se declara una variable que guarde la cabeza de la cola
+            DescripcionUbi cabezaCola = new DescripcionUbi();
+            //Variable que comprueba el tamaño de la cola
+            int queueInitialSize = cola.Count;
+            //Se declara una variable que guarde el número de nombres eliminados
+            int deletedNames = 0;
+            //Bucle para eliminar nombres
+            for(int i = 0; i < queueInitialSize; i++)
+            {
+                cabezaCola = cola.Peek();
+                if (cabezaCola.Nombre[0].ToString() != letraIgnoreMayus)
+                {
+                    cola.Enqueue(cola.Dequeue());
+                }
+                else
+                {
+                    cola.Dequeue();
+                    deletedNames++;
+                }
+            }
 
-            /* A rellenar por el alumno */
-
+            return deletedNames;
         }
 
         /** Elimina todo los elementos de la pila */
-        static void limpiar(ref Stack pila)
+        static void Limpiar(ref Stack<DescripcionUbi> pila)
         {
-            /* A rellenar por el alumno */
-
+            pila.Clear();
         }
 
-        static void limpiarC(ref Queue cola)
+        static void LimpiarC(ref Queue<DescripcionUbi> cola)
         {
-            /* A rellenar por el alumno */
-
+            cola.Clear();
         }
 
 
@@ -278,18 +360,54 @@ namespace Ejecicio_2
 
         }
 
-        static void imprimirPila(Stack pila)
+        /// <summary>
+        /// Imprime línea a línea los elementos de la pila
+        /// </summary>
+        /// <param name="pila">Pila</param>
+        static void ImprimirPila(Stack<DescripcionUbi> pila)
         {
-            /* A rellenar por el alumno */
+            //Se instancia una pila auxiliar
+            Stack<DescripcionUbi> pilaAux = new Stack<DescripcionUbi>();
+            //Se declara una variable que guarde el Top Of Stack
+            DescripcionUbi TOS = new DescripcionUbi();
+            //Variables que comprueben el tamaño de la pila y de la pila auxiliar
+            int auxStackInitialSize;
+            int stackInitialSize = pila.Count;
+            //Bucle para recorrer la pila
+            for (int i = 0; i < stackInitialSize; i++)
+            {
+                //Se guarda la cima
+                TOS = pila.Peek();
+                Console.WriteLine(TOS.Nombre + "  " + TOS.Apellido + "  " + TOS.Password);
+                AgregarPila(ref pilaAux, pila.Pop());
+            }
+            auxStackInitialSize = pilaAux.Count;
+            //Se devuelven los elementos a la pila original
+            for (int i = 0; i < auxStackInitialSize; i++)
+            {
+                AgregarPila(ref pila, pilaAux.Pop());
+            }
 
         }
 
-
-
-        
-        static void imprimirCola(Queue cola)
+        /// <summary>
+        /// Imprime todos los elementos de la cola
+        /// </summary>
+        /// <param name="cola">Cola</param>
+        static void ImprimirCola(Queue<DescripcionUbi> cola)
         {
-            /* A rellenar por el alumno */
+            //Se declara una variable que guarde la cabeza de la cola
+            DescripcionUbi cabezaCola = new DescripcionUbi();
+            //Variable que comprueba el tamaño de la cola
+            int queueInitialSize = cola.Count;
+            //Bucle para visualizar cola
+            for (int i = 0; i < queueInitialSize; i++)
+            {
+                cabezaCola = cola.Peek();
+                Console.WriteLine(cabezaCola.Nombre + "  " + cabezaCola.Apellido + "  " + cabezaCola.Password);
+
+                cola.Enqueue(cola.Dequeue());
+            }
 
         }
 
@@ -329,6 +447,10 @@ namespace Ejecicio_2
             return opcion;
         }
 
+        /// <summary>
+        /// Muestra menú de construir estructuras
+        /// </summary>
+        /// <returns>Opción elegida</returns>
         static int MenuConstruirEstructuras()
         {
             // Se declara una variable de opción y otra de control
@@ -337,6 +459,39 @@ namespace Ejecicio_2
 
             // Interfaz menú
             Console.Write("1) Construir Pila\n2) Construir Cola\n\n\n=> ");
+
+            // Se pide al usuario la opción deseada
+            if (int.TryParse(Console.ReadLine(), out opcion))
+            {
+                control = true;
+            }
+            else
+            {
+                control = false;
+                Console.WriteLine("Valor introducido incorrecto. El valor debe ser un número entero");
+            }
+
+            if (opcion < 1 || opcion > 2)
+            {
+                control = false;
+                Console.WriteLine("Opción Incorrecta. Elija una opción válida");
+            }
+
+            return opcion;
+        }
+
+        /// <summary>
+        /// Muestra el menú de visualizar las estructuras
+        /// </summary>
+        /// <returns>Opción elegida</returns>
+        static int MenuVisualizarEstructuras()
+        {
+            // Se declara una variable de opción y otra de control
+            int opcion;
+            bool control = true;
+
+            // Interfaz menú
+            Console.Write("1) Visualizar pila\n2) Visualizar Cola\n\n\n=> ");
 
             // Se pide al usuario la opción deseada
             if (int.TryParse(Console.ReadLine(), out opcion))
