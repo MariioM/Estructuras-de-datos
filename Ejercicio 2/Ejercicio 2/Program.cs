@@ -8,9 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-
-
-
 namespace Ejecicio_2
 
 {
@@ -29,10 +26,11 @@ namespace Ejecicio_2
 
         static void Main(string[] args)
         {
-            //Se instancia una pila y una cola
+            // Se instancia una pila y una cola
             Stack<DescripcionUbi> pila = new Stack<DescripcionUbi>();
             Queue<DescripcionUbi> cola = new Queue<DescripcionUbi>();
-            //Se declara una variable de control del programa y el array de los datos
+            
+            // Se declara una variable de control del programa y el array de los datos
             bool program = true;
             DescripcionUbi[] datosUsuario =  new DescripcionUbi[50];
             do
@@ -410,7 +408,6 @@ namespace Ejecicio_2
             }
 
         }
-
 
         /// <summary>
         /// Imprime el menú principal.

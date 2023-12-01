@@ -74,12 +74,14 @@ int main(void)
     tPila *pPila1, *pPila2;
     pPila1 = NULL;
     pPila2 = NULL;
+    char Let_pila;
     int tam_aux1, tam_aux2;
 
     // Colas
     tCola Cola1;
     tCola Cola2;
     tCola ColaAux;
+    char Let_cola;
 
     // Listas
     tLista *pLista;
@@ -88,10 +90,6 @@ int main(void)
     FILE *pf_usuarios;
     int num_usuarios;
     char Cadena[MAX_CAR * 3 + 2];
-
-    // Letras
-    char Let_pila;
-    char Let_cola;
 
     // Textos Menus
     char textoMenuPrincipal[] = "\n  Elija que quiere hacer: \n\t 1) Leer fichero.\n\t 2) Construir estructuras.\n\t 3) Extraer nombres pila. \n\t 4) Extraer nombres cola. \n\t 5) Visualizar estructuras \n\t 6) Salir del programa.\n  => ";
@@ -116,10 +114,14 @@ int main(void)
             case 1: // 1) Construir pilas.
                 pPila1 = CrearPila();
                 pPila1 = ConstruirPila(pPila1, pElemento, num_usuarios);
+                pPila2 = CrearPila();
                 printf("  Pila construida correctamente!\n");
                 break;
             case 2: // 2) Construir colas.
                 Cola1 = ConstruirCola(&Cola1, pElemento, num_usuarios);
+                Cola2 = CrearCola();
+                // Se crea una cola auxiliar
+                ColaAux = CrearCola();
                 printf("  Cola construida correctamente!\n");
                 break;
             case 3: // 3) Construir listas.
@@ -137,7 +139,7 @@ int main(void)
             printf("Escoja una letra: ");
             scanf("%c", &Let_pila);
             ExtraerPilaOrden(pPila1, Let_pila, pPila2, num_usuarios, &tam_aux1, &tam_aux2);
-            printf("\n\n Pila con los nombres: \n", Let_pila);
+            printf("\n\nPila con los nombres: \n", Let_pila);
             VisualizarPila(pPila1, tam_aux1);
             printf("\n\nPila sin nombres que comiencen por %c: \n", Let_pila);
             VisualizarPila(pPila2, tam_aux2);
@@ -155,29 +157,30 @@ int main(void)
             // ella para devolver en Cola2 los nombres con la letra buscada, y en ColaAux la cola sin esos nombres. Le paso por parámetro la letra
             // y el número de usuarios para facilitar la ejecución.
             Cola1 = ExtraerColaOrden(&Cola1, Let_cola, &Cola2, &ColaAux, num_usuarios);
-            printf("\n\n  * Cola con los nombres: \n");
+            printf("\n\nCola con los nombres: \n");
             VisualizarCola(Cola2);
-            printf("\n\n  * Cola sin esos nombres: \n");
+            printf("\n\nCola sin esos nombres: \n");
             VisualizarCola(ColaAux);
             break;
         case 5: // 5) Visualizar estructuras
             switch (Menu(textoMenuVisualizar, 1, 3))
             {
-            case 1: // 1) Construir pilas.
+            case 1: // 1) Visualizar pilas.
                 printf("\nPila:\n");
                 VisualizarPila(pPila1, num_usuarios);
                 break;
-            case 2: // 2) Construir colas.
+            case 2: // 2) Visualizar colas.
                 printf("\nCola:\n");
                 VisualizarCola(Cola1);
                 break;
-            case 3: // 3) Construir listas.
+            case 3: // 3) Visualizar listas.
                 printf("\nLista:\n");
                 VisualizarLista(pLista);
                 break;
             case 4: // 4) Volver atras.
                 break;
             }
+            break;
         case 6: // 6) Salir del programa.
             exit(1);
             break;
@@ -208,7 +211,7 @@ void CalculaUsuarios(FILE *pf_usuarios, int *num_usuarios)
     if (pf_usuarios == NULL)
     {
         *num_usuarios = 0;
-        printf("Error al abrir el fichero.");
+        printf("  Error al abrir el fichero.");
         fclose(pf_usuarios);
     }
     // Se lee el numero de filas del fichero
@@ -230,7 +233,7 @@ int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lin
     // Control de apertura fichero
     if (pf_usuarios == NULL)
     {
-        printf("Error al abrir el fichero.");
+        printf("  Error al abrir el fichero.");
         return -1; // Devuelve un valor para indicar error
     }
     for (int i = 0; i < num_usuarios; i++)
@@ -242,12 +245,7 @@ int LeeFichero(FILE *pf_usuarios, tElemento *usuario, int num_usuarios, char lin
     fclose(pf_usuarios); // Cierra el archivo después de leer los datos
 
     // Imprime los datos almacenados
-    printf("Datos almacenados:\n");
-    for (int i = 0; i < num_usuarios; i++)
-    {
-        printf("Name: %s\nApellido: %s\nPassword: %s\n", usuario->Nombre, usuario->Apellido, usuario->Password);
-        usuario++;
-    }
+    printf("  Datos almacenados correctamente!\n");
     return 0; // Devuelve 0 para indicar éxito
 }
 
@@ -311,9 +309,9 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
             // Si la letra coincide, el proceso será encolar dicho nombre, su apellido y su pass en la Cola2, y posteriormente desencolar la Cola1,
             // Que acabará vacía al final del while
             Apilar(pAux2, buscar->Elem);
-            if (!EsPilaVacia(pPila))
+            if (EsPilaVacia(pPila))
             {
-                printf("ERR_404. La cola está vacía.");
+                printf("  ERR_404. La cola está vacía.");
                 break;
             }
             else
@@ -325,9 +323,9 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
         {
             // En algunos casos, el fichero ha guardado un "\n" antes del nombre, por lo que tendremos que comprobar también esta premisa
             Apilar(pAux2, buscar->Elem);
-            if (!EsPilaVacia(pPila))
+            if (EsPilaVacia(pPila))
             {
-                printf("ERR_404. La cola está vacía.");
+                printf("  ERR_404. La cola está vacía.");
             }
             else
             {
@@ -339,9 +337,9 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
             // Si la letra no coincide, simplemente encolamos en la auxiliar, que contendrá la cola sin los nombres buscamos, y desencolamos de cola1, para que la cabeza
             // se mueva a la siguiente posición.
             Apilar(pAux1, buscar->Elem);
-            if (!EsPilaVacia(pPila))
+            if (EsPilaVacia(pPila))
             {
-                printf("ERR_404. La cola está vacía.");
+                printf("  ERR_404. La cola está vacía.");
             }
             else
             {
@@ -357,7 +355,6 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
 
     for (j = 0; j < *aux1; j++)
     {
-
         Apilar(pPila, pAux1->cima->Elem);
         Desapilar(pAux1);
     }
@@ -390,7 +387,7 @@ tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, in
             Encolar(pCola2, buscado->Elem);
             if (EsColaVacia(pCola1))
             {
-                printf("ERR_404. La cola está vacía.");
+                printf("  ERR_404. La cola está vacía.");
                 break;
             }
             else
@@ -404,7 +401,7 @@ tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, in
             Encolar(pCola2, buscado->Elem);
             if (EsColaVacia(pCola1))
             {
-                printf("ERR_404. La cola está vacía.");
+                printf("  ERR_404. La cola está vacía.");
             }
             else
             {
@@ -418,7 +415,7 @@ tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, in
             Encolar(pAux, buscado->Elem);
             if (EsColaVacia(pCola1))
             {
-                printf("ERR_404. La cola está vacía.");
+                printf("  ERR_404. La cola está vacía.");
             }
             else
             {
@@ -428,6 +425,6 @@ tCola ExtraerColaOrden(tCola *pCola1, char Letra, tCola *pCola2, tCola *pAux, in
         i++;
     }
     // Mediante la funcion CalcularNumElementosC, veremos cuantos usuarios hay en cada cola. La cola1 obviamente tendrá 0 usuarios al acabar el while.
-    printf("La cola con los nombres que empiezan por la letra %c está compuesta por %d usuarios.\n", Letra, CalcularNumElementosC(pCola2));
-    printf("La cola con los nombres que no empiezan por la letra %c está compuesta por %d usuarios.\n", Letra, CalcularNumElementosC(pAux));
+    printf("  La cola con los nombres que empiezan por la letra %c está compuesta por %d usuarios.\n", Letra, CalcularNumElementosC(pCola2));
+    printf("  La cola con los nombres que no empiezan por la letra %c está compuesta por %d usuarios.\n", Letra, CalcularNumElementosC(pAux));
 }
