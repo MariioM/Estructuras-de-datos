@@ -17,29 +17,29 @@ extern tPila *CrearPila();
 /// @brief  Inserta un elemento en la cima de la pila.
 /// @param p Pila
 /// @param Ele Elemento
-/// @return Pila con el elemento insertado en la cima.
+/// @return Pila con el elemento insertado en la cima
 extern void *Apilar(tPila *p, tElemento Ele);
 /// @brief Elimina el elemento de la cima de la pila.
 /// @param p Pila
 /// @param e Elemento
-/// @return Pila sin el elemento de la cima.
+/// @return Pila sin el elemento de la cima
 extern void *Desapilar(tPila *p);
 
-/// @brief Comprueba si la pila está vacía.
+/// @brief Comprueba si la pila está vacía
 /// @param p Pila
-/// @return 0 si está vacía, 1 si no lo está.
+/// @return 0 si está vacía, 1 si no lo está
 extern int EsPilaVacia(tPila *p);
-/// @brief Imprime los elementos de la pila.
-/// @param p Pila.
+/// @brief Imprime los elementos de la pila
+/// @param p Pila
 extern void VisualizarPila(tPila *pila, int num_usuarios);
-/// @brief Calcula el número de elementos de la pila.
-/// @param p Pila.
-/// @return Número de elementos.
+/// @brief Calcula el número de elementos de la pila
+/// @param p Pila
+/// @return Número de elementos
 extern int CalcularNumElementos(tPila *p);
-/// @brief Elimina el elemento de la cima de la pila.
+/// @brief Elimina el elemento de la cima de la pila
 /// @param p Pila
 /// @param e Elemento
-/// @return Pila sin el elemento de la cima.
+/// @return Pila sin el elemento de la cima
 extern void *Desapilar(tPila *p);
 /// @brief
 /// @param pPila Puntero a la pila
