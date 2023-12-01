@@ -44,42 +44,7 @@ namespace Ejecicio_2
                         break;
                     case 2: // Construir Estructuras
                         Console.Clear();
-                        // Se muestra el menú de construir estructuras
-                        switch (MenuConstruirEstructuras())
-                        {
-                            case 1: //Construir pila
-                                //Se instancian una pila auxiliar
-                                Stack<DescripcionUbi> pilaAux = new Stack<DescripcionUbi>();
-                                //Array auxiliar para ordenar elementos
-                                DescripcionUbi[] listaAuxiliar = new DescripcionUbi[50];
-                                //Se insertan los elementos de forma inversa
-                                for (int i = 0; i < datosUsuario.Length; i++)
-                                {
-                                    AgregarPila(ref pilaAux, datosUsuario[i]);
-                                }
-                                //Se colocan los elementos ya ordenados en un array auxiliar
-                                for(int i = 0; i < datosUsuario.Length; i++)
-                                {
-                                    pilaAux.CopyTo(listaAuxiliar, 0);
-                                }
-                                for(int i = 0; i < datosUsuario.Length; i++) 
-                                {
-                                    AgregarPila(ref pila, listaAuxiliar[i]);
-                                }
-
-                                Console.WriteLine("\nPila construida correctamente");
-                                break;
-                            case 2: //Construir colas
-                                //Se insertan todos los elementos en la cola
-                                for (int i = 0; i < datosUsuario.Length; i++)
-                                {
-                                    AgregarCola(ref cola, datosUsuario[i]);
-                                }
-                                Console.WriteLine("\nCola construida correctamente");
-                                break;
-                            default:
-                                throw new Exception("Internal Error (Build option doesn´t exist)");
-                        }
+                        ConstruirEstructuras(ref pila, ref cola, ref datosUsuario);
                         Continuar();
                         break;
                     case 3: // Extraer nombres pilas
@@ -133,24 +98,7 @@ namespace Ejecicio_2
                         break;
                     case 5: // Visualizar estructuras
                         Console.Clear();
-                        //Se muestra el menú de propio
-                        switch (MenuVisualizarEstructuras())
-                        {
-                            case 1: //Visualizar Pila
-                                Console.Clear();
-                                Console.WriteLine("\n\n\nVISUALIZAR ELEMENTOS PILAS");
-                                Console.WriteLine("-----------------------------------");
-                                ImprimirPila(pila);
-                                break;
-                            case 2: //Visualizar cola
-                                Console.Clear();
-                                Console.WriteLine("\n\n\nVISUALIZAR ELEMENTOS COLAS");
-                                Console.WriteLine("-----------------------------------");
-                                ImprimirCola(cola);
-                                break;
-                            default:
-                                throw new Exception("Internal Error (Build option doesn´t exist)");
-                        }
+                        VisualizarEstructuras(pila, cola);
                         Continuar();
                         break;
                     case 6: // Salir
@@ -405,7 +353,7 @@ namespace Ejecicio_2
             bool control = true;
             
             // Interfaz menú
-            Console.Write("1) Leer Fichero\n2) Construir Estructuras\n3) Extraer Nombres Pila\n4) Extraer Nombres Cola\n5) Visualizar Estructuras\n6) Salir\n\n=> ");
+            Console.Write("\n1) Leer Fichero\n2) Construir Estructuras\n3) Extraer Nombres Pila\n4) Extraer Nombres Cola\n5) Visualizar Estructuras\n6) Salir\n\n=> ");
             
             // Se pide al usuario la opción deseada
             if(int.TryParse(Console.ReadLine(), out opcion))
@@ -491,6 +439,79 @@ namespace Ejecicio_2
             }
 
             return opcion;
+        }
+
+        /// <summary>
+        /// Controla la lógica de construir las pilas y colas
+        /// </summary>
+        /// <param name="pila>Pila</param>
+        /// <param name="cola">Cola</param>
+        /// <param name="datosUsuario">Array que almacena los datos del usuario</param>
+        static void ConstruirEstructuras(ref Stack<DescripcionUbi> pila, ref Queue<DescripcionUbi> cola, ref DescripcionUbi[] datosUsuario)
+        {
+            // Se muestra el menú de construir estructuras
+            switch (MenuConstruirEstructuras())
+            {
+                case 1: // Construir pila
+                        // Se instancian una pila auxiliar
+                    Stack<DescripcionUbi> pilaAux = new Stack<DescripcionUbi>();
+                    // Array auxiliar para ordenar elementos
+                    DescripcionUbi[] listaAuxiliar = new DescripcionUbi[50];
+                    // Se insertan los elementos de forma inversa
+                    for (int i = 0; i < datosUsuario.Length; i++)
+                    {
+                        AgregarPila(ref pilaAux, datosUsuario[i]);
+                    }
+                    // Se colocan los elementos ya ordenados en un array auxiliar
+                    for (int i = 0; i < datosUsuario.Length; i++)
+                    {
+                        pilaAux.CopyTo(listaAuxiliar, 0);
+                    }
+                    for (int i = 0; i < datosUsuario.Length; i++)
+                    {
+                        AgregarPila(ref pila, listaAuxiliar[i]);
+                    }
+
+                    Console.WriteLine("\nPila construida correctamente");
+                    break;
+                case 2: // Construir colas
+                        // Se insertan todos los elementos en la cola
+                    for (int i = 0; i < datosUsuario.Length; i++)
+                    {
+                        AgregarCola(ref cola, datosUsuario[i]);
+                    }
+                    Console.WriteLine("\nCola construida correctamente");
+                    break;
+                default:
+                    throw new Exception("Internal Error (Build option doesn´t exist)");
+            }
+        }
+
+        /// <summary>
+        /// Controla la lógica de visualizar las pilas y colas
+        /// </summary>
+        /// <param name="pila>Pila</param>
+        /// <param name="cola">Cola</param>
+        static void VisualizarEstructuras(Stack<DescripcionUbi> pila, Queue<DescripcionUbi> cola)
+        {
+            //Se muestra el menú de propio
+            switch (MenuVisualizarEstructuras())
+            {
+                case 1: //Visualizar Pila
+                    Console.Clear();
+                    Console.WriteLine("\n\n\nVISUALIZAR ELEMENTOS PILAS");
+                    Console.WriteLine("-----------------------------------");
+                    ImprimirPila(pila);
+                    break;
+                case 2: //Visualizar cola
+                    Console.Clear();
+                    Console.WriteLine("\n\n\nVISUALIZAR ELEMENTOS COLAS");
+                    Console.WriteLine("-----------------------------------");
+                    ImprimirCola(cola);
+                    break;
+                default:
+                    throw new Exception("Internal Error (Build option doesn´t exist)");
+            }
         }
 
         /// <summary>
