@@ -33,6 +33,7 @@ namespace Ejecicio_2
             // Se declara una variable de control del programa y el array de los datos
             bool program = true;
             DescripcionUbi[] datosUsuario =  new DescripcionUbi[50];
+            
             do
             {
                 // Se imprime el menú y se diferencian entre las diferentes opciones
@@ -49,51 +50,12 @@ namespace Ejecicio_2
                         break;
                     case 3: // Extraer nombres pilas
                         Console.Clear();
-                        // Se declara una variable de control y otra que guarde el número de nombres eliminados
-                        bool control = true;
-                        int deletedNames;
-                        //Se pide al usuario que indique la letra
-                        char letra;
-                        do { 
-                            Console.Write("\nIndique la letra inicial de los nombres a extraer => ");
-                            if(char.TryParse(Console.ReadLine(), out letra))
-                            {
-                                deletedNames = ExtraerElemNomP(letra, ref pila);
-                                Console.WriteLine("\n----------------------------------------------");
-                                Console.WriteLine("Se han eliminado " + deletedNames + " nombres.");
-                                Console.WriteLine("----------------------------------------------");
-                                control = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("El valor introducido debe ser un único carácter"); 
-                                control= false;
-                            }
-                        }while( !control );
+                        ExtraerPila(ref pila);
                         Continuar();
                         break;
                     case 4: // Extraer nombres cola
                         Console.Clear();
-                        //Se declara una variable de control y otra que guarde el número de nombres eliminados
-                        control = true;
-                        //Se pide al usuario que indique la letra
-                        do
-                        {
-                            Console.Write("\nIndique la letra inicial de los nombres a extraer => ");
-                            if (char.TryParse(Console.ReadLine(), out letra))
-                            {
-                                deletedNames = ExtraerElemNomC(letra, ref cola);
-                                Console.WriteLine("\n----------------------------------------------");
-                                Console.WriteLine("Se han eliminado " + deletedNames + " nombres.");
-                                Console.WriteLine("----------------------------------------------");
-                                control = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("El valor introducido debe ser un único carácter");
-                                control = false;
-                            }
-                        } while (!control);
+                        ExtraerCola(ref cola);
                         Continuar();
                         break;
                     case 5: // Visualizar estructuras
@@ -444,7 +406,7 @@ namespace Ejecicio_2
         /// <summary>
         /// Controla la lógica de construir las pilas y colas
         /// </summary>
-        /// <param name="pila>Pila</param>
+        /// <param name="pila">Pila</param>
         /// <param name="cola">Cola</param>
         /// <param name="datosUsuario">Array que almacena los datos del usuario</param>
         static void ConstruirEstructuras(ref Stack<DescripcionUbi> pila, ref Queue<DescripcionUbi> cola, ref DescripcionUbi[] datosUsuario)
@@ -490,7 +452,7 @@ namespace Ejecicio_2
         /// <summary>
         /// Controla la lógica de visualizar las pilas y colas
         /// </summary>
-        /// <param name="pila>Pila</param>
+        /// <param name="pila">Pila</param>
         /// <param name="cola">Cola</param>
         static void VisualizarEstructuras(Stack<DescripcionUbi> pila, Queue<DescripcionUbi> cola)
         {
@@ -512,6 +474,66 @@ namespace Ejecicio_2
                 default:
                     throw new Exception("Internal Error (Build option doesn´t exist)");
             }
+        }
+
+        /// <summary>
+        /// Controla la lógica de extraer nombres que comiencen por una letra de la pila
+        /// </summary>
+        /// <param name="pila">Pila</param>
+        static void ExtraerPila(ref Stack<DescripcionUbi> pila)
+        {
+            // Se declara una variable de control y otra que guarde el número de nombres eliminados
+            bool control = true;
+            int deletedNames;
+            //Se pide al usuario que indique la letra
+            char letra;
+            do
+            {
+                Console.Write("\nIndique la letra inicial de los nombres a extraer => ");
+                if (char.TryParse(Console.ReadLine(), out letra))
+                {
+                    deletedNames = ExtraerElemNomP(letra, ref pila);
+                    Console.WriteLine("\n----------------------------------------------");
+                    Console.WriteLine("Se han eliminado " + deletedNames + " nombres.");
+                    Console.WriteLine("----------------------------------------------");
+                    control = true;
+                }
+                else
+                {
+                    Console.WriteLine("El valor introducido debe ser un único carácter");
+                    control = false;
+                }
+            } while (!control);
+        }
+
+        /// <summary>
+        /// Controla la lógica de extraer nombres que comiencen por una letra de la cola
+        /// </summary>
+        /// <param name="cola">Cola</param>
+        static void ExtraerCola(ref Queue<DescripcionUbi> cola)
+        {
+            // Se declara una variable de control y otra que guarde el número de nombres eliminados
+            bool control = true;
+            int deletedNames;
+            //Se pide al usuario que indique la letra
+            char letra;
+            do
+            {
+                Console.Write("\nIndique la letra inicial de los nombres a extraer => ");
+                if (char.TryParse(Console.ReadLine(), out letra))
+                {
+                    deletedNames = ExtraerElemNomC(letra, ref cola);
+                    Console.WriteLine("\n----------------------------------------------");
+                    Console.WriteLine("Se han eliminado " + deletedNames + " nombres.");
+                    Console.WriteLine("----------------------------------------------");
+                    control = true;
+                }
+                else
+                {
+                    Console.WriteLine("El valor introducido debe ser un único carácter");
+                    control = false;
+                }
+            } while (!control);
         }
 
         /// <summary>
