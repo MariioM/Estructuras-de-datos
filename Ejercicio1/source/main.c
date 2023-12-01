@@ -311,7 +311,7 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
             Apilar(pAux2, buscar->Elem);
             if (EsPilaVacia(pPila))
             {
-                printf("  ERR_404. La cola está vacía.");
+                printf("  ERR_404. La pila está vacía.");
                 break;
             }
             else
@@ -325,7 +325,7 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
             Apilar(pAux2, buscar->Elem);
             if (EsPilaVacia(pPila))
             {
-                printf("  ERR_404. La cola está vacía.");
+                printf("  ERR_404. La pila está vacía.");
             }
             else
             {
@@ -339,7 +339,7 @@ void *ExtraerPilaOrden(tPila *pPila, char Letra, tPila *pPila2, int num_usuarios
             Apilar(pAux1, buscar->Elem);
             if (EsPilaVacia(pPila))
             {
-                printf("  ERR_404. La cola está vacía.");
+                printf("  ERR_404. La pila está vacía.");
             }
             else
             {
