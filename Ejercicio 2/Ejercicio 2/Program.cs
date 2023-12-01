@@ -39,16 +39,15 @@ namespace Ejecicio_2
                 switch (MenuPrincipal())
                 {
                     case 1: // Leer fichero
-                        Console.Clear();
                         LeerFichero(fichero, out datosUsuario);
+                        Continuar();
                         break;
                     case 2: // Construir Estructuras
                         Console.Clear();
-                        //Se muestra el menú de construir estructuras
+                        // Se muestra el menú de construir estructuras
                         switch (MenuConstruirEstructuras())
                         {
                             case 1: //Construir pila
-                                Console.Clear();
                                 //Se instancian una pila auxiliar
                                 Stack<DescripcionUbi> pilaAux = new Stack<DescripcionUbi>();
                                 //Array auxiliar para ordenar elementos
@@ -67,37 +66,37 @@ namespace Ejecicio_2
                                 {
                                     AgregarPila(ref pila, listaAuxiliar[i]);
                                 }
+
+                                Console.WriteLine("\nPila construida correctamente");
                                 break;
                             case 2: //Construir colas
-                                Console.Clear();
                                 //Se insertan todos los elementos en la cola
                                 for (int i = 0; i < datosUsuario.Length; i++)
                                 {
                                     AgregarCola(ref cola, datosUsuario[i]);
                                 }
+                                Console.WriteLine("\nCola construida correctamente");
                                 break;
                             default:
                                 throw new Exception("Internal Error (Build option doesn´t exist)");
                         }
+                        Continuar();
                         break;
                     case 3: // Extraer nombres pilas
                         Console.Clear();
-                        //Se declara una variable de control y otra que guarde el número de nombres eliminados
+                        // Se declara una variable de control y otra que guarde el número de nombres eliminados
                         bool control = true;
                         int deletedNames;
                         //Se pide al usuario que indique la letra
                         char letra;
                         do { 
-                            Console.Write("Indique la letra inicial de los nombres a extraer => ");
+                            Console.Write("\nIndique la letra inicial de los nombres a extraer => ");
                             if(char.TryParse(Console.ReadLine(), out letra))
                             {
                                 deletedNames = ExtraerElemNomP(letra, ref pila);
-                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine("\n----------------------------------------------");
                                 Console.WriteLine("Se han eliminado " + deletedNames + " nombres.");
                                 Console.WriteLine("----------------------------------------------");
-                                Console.WriteLine("Pulse cualquier tecla para continuar...");
-                                Console.ReadKey();
-                                Console.Clear();
                                 control = true;
                             }
                             else
@@ -106,6 +105,7 @@ namespace Ejecicio_2
                                 control= false;
                             }
                         }while( !control );
+                        Continuar();
                         break;
                     case 4: // Extraer nombres cola
                         Console.Clear();
@@ -114,16 +114,13 @@ namespace Ejecicio_2
                         //Se pide al usuario que indique la letra
                         do
                         {
-                            Console.Write("Indique la letra inicial de los nombres a extraer => ");
+                            Console.Write("\nIndique la letra inicial de los nombres a extraer => ");
                             if (char.TryParse(Console.ReadLine(), out letra))
                             {
                                 deletedNames = ExtraerElemNomC(letra, ref cola);
-                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine("\n----------------------------------------------");
                                 Console.WriteLine("Se han eliminado " + deletedNames + " nombres.");
                                 Console.WriteLine("----------------------------------------------");
-                                Console.WriteLine("Pulse cualquier tecla para continuar...");
-                                Console.ReadKey();
-                                Console.Clear();
                                 control = true;
                             }
                             else
@@ -132,6 +129,7 @@ namespace Ejecicio_2
                                 control = false;
                             }
                         } while (!control);
+                        Continuar();
                         break;
                     case 5: // Visualizar estructuras
                         Console.Clear();
@@ -143,22 +141,17 @@ namespace Ejecicio_2
                                 Console.WriteLine("\n\n\nVISUALIZAR ELEMENTOS PILAS");
                                 Console.WriteLine("-----------------------------------");
                                 ImprimirPila(pila);
-                                Console.WriteLine("Pulse cualquier tecla para continuar...");
-                                Console.ReadKey();
-                                Console.Clear();
                                 break;
                             case 2: //Visualizar cola
                                 Console.Clear();
                                 Console.WriteLine("\n\n\nVISUALIZAR ELEMENTOS COLAS");
                                 Console.WriteLine("-----------------------------------");
                                 ImprimirCola(cola);
-                                Console.WriteLine("Pulse cualquier tecla para continuar...");
-                                Console.ReadKey();
-                                Console.Clear();
                                 break;
                             default:
                                 throw new Exception("Internal Error (Build option doesn´t exist)");
                         }
+                        Continuar();
                         break;
                     case 6: // Salir
                         program = false;
@@ -237,7 +230,6 @@ namespace Ejecicio_2
         /// </summary>
         /// <param name="pila">Pila</param>
         /// <param name="valor">Elemento</param>
-
         static void AgregarPila(ref Stack<DescripcionUbi> pila, DescripcionUbi valor)
         {
             pila.Push(valor);
@@ -292,7 +284,6 @@ namespace Ejecicio_2
         /// </summary>
         /// <param name="Cola">Cola</param>
         /// <param name="valor">Elemento</param>
-
         static void AgregarCola(ref Queue<DescripcionUbi> Cola, DescripcionUbi valor)
         {
             Cola.Enqueue(valor);
@@ -303,7 +294,7 @@ namespace Ejecicio_2
         /// </summary>
         /// <param name="Letra">Letra indicada</param>
         /// <param name="cola">Cola</param>
-        /// <returns></returns>
+        /// <returns>Número de elementos eliminados</returns>
         static int ExtraerElemNomC(char Letra, ref Queue<DescripcionUbi> cola)
         {
             //Se pasa la letra a mayúsculas para evitar fallos
@@ -332,30 +323,22 @@ namespace Ejecicio_2
             return deletedNames;
         }
 
-        /** Elimina todo los elementos de la pila */
+        /// <summary>
+        /// Elimina todos los elementos de la pila
+        /// </summary>
+        /// <param name="pila">Pila</param>
         static void Limpiar(ref Stack<DescripcionUbi> pila)
         {
             pila.Clear();
         }
 
+        /// <summary>
+        /// Elimina todos los elementos de la cola
+        /// </summary>
+        /// <param name="pila">Pila</param>
         static void LimpiarC(ref Queue<DescripcionUbi> cola)
         {
             cola.Clear();
-        }
-
-
-
-        /** Elimina elemento de la pila */
-        static void eliminar(ref Stack pila)
-        {
-            /* A rellenar por el alumno */
-
-        }
-
-        static void eliminarC(ref Queue cola)
-        {
-            /* A rellenar por el alumno */
-
         }
 
         /// <summary>
@@ -364,14 +347,14 @@ namespace Ejecicio_2
         /// <param name="pila">Pila</param>
         static void ImprimirPila(Stack<DescripcionUbi> pila)
         {
-            //Se instancia una pila auxiliar
+            // Se instancia una pila auxiliar
             Stack<DescripcionUbi> pilaAux = new Stack<DescripcionUbi>();
-            //Se declara una variable que guarde el Top Of Stack
+            // Se declara una variable que guarde el Top Of Stack
             DescripcionUbi TOS = new DescripcionUbi();
-            //Variables que comprueben el tamaño de la pila y de la pila auxiliar
+            // Variables que comprueben el tamaño de la pila y de la pila auxiliar
             int auxStackInitialSize;
             int stackInitialSize = pila.Count;
-            //Bucle para recorrer la pila
+            // Bucle para recorrer la pila
             for (int i = 0; i < stackInitialSize; i++)
             {
                 //Se guarda la cima
@@ -380,7 +363,7 @@ namespace Ejecicio_2
                 AgregarPila(ref pilaAux, pila.Pop());
             }
             auxStackInitialSize = pilaAux.Count;
-            //Se devuelven los elementos a la pila original
+            // Se devuelven los elementos a la pila original
             for (int i = 0; i < auxStackInitialSize; i++)
             {
                 AgregarPila(ref pila, pilaAux.Pop());
@@ -394,11 +377,11 @@ namespace Ejecicio_2
         /// <param name="cola">Cola</param>
         static void ImprimirCola(Queue<DescripcionUbi> cola)
         {
-            //Se declara una variable que guarde la cabeza de la cola
+            // Se declara una variable que guarde la cabeza de la cola
             DescripcionUbi cabezaCola = new DescripcionUbi();
-            //Variable que comprueba el tamaño de la cola
+            // Variable que comprueba el tamaño de la cola
             int queueInitialSize = cola.Count;
-            //Bucle para visualizar cola
+            // Bucle para visualizar cola
             for (int i = 0; i < queueInitialSize; i++)
             {
                 cabezaCola = cola.Peek();
@@ -455,7 +438,7 @@ namespace Ejecicio_2
             bool control = true;
 
             // Interfaz menú
-            Console.Write("1) Construir Pila\n2) Construir Cola\n\n\n=> ");
+            Console.Write("\n1) Construir Pila\n2) Construir Cola\n\n=> ");
 
             // Se pide al usuario la opción deseada
             if (int.TryParse(Console.ReadLine(), out opcion))
@@ -488,7 +471,7 @@ namespace Ejecicio_2
             bool control = true;
 
             // Interfaz menú
-            Console.Write("1) Visualizar pila\n2) Visualizar Cola\n\n\n=> ");
+            Console.Write("\n1) Visualizar pila\n2) Visualizar Cola\n\n=> ");
 
             // Se pide al usuario la opción deseada
             if (int.TryParse(Console.ReadLine(), out opcion))
@@ -508,6 +491,22 @@ namespace Ejecicio_2
             }
 
             return opcion;
+        }
+
+        /// <summary>
+        /// Pide al usuario que pulse la tecla enter para continuar.
+        /// </summary>
+        /// <param name="limpiar">
+        /// Entero que representa si se desea limpiar (1) la consola
+        /// antes de mostrar el texto.
+        /// </param>
+        public static void Continuar()
+        {
+            Console.WriteLine("\nPulse Enter para continuar:");
+
+
+            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+            Console.Clear();
         }
     }
 }
